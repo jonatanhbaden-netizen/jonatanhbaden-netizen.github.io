@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="nb">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Legg ut stilling — Jobbo</title>
+<link rel="icon" href="/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Familjen+Grotesk:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap">
+<link rel="stylesheet" href="/shared/tokens.css">
+<link rel="stylesheet" href="/shared/base.css">
+<link rel="stylesheet" href="/shared/components.css">
+<style>
+  .steg-spor { display: flex; gap: var(--s-4); margin-bottom: var(--s-6); font-size: var(--t-sm); }
+  .steg-spor li { list-style: none; display: flex; gap: var(--s-2); align-items: center; color: var(--ink-3); }
+  .steg-spor li[aria-current='step'] { color: var(--ink); font-weight: 600; }
+  .steg-nr {
+    width: 1.5rem; height: 1.5rem; border-radius: 50%; display: grid; place-items: center;
+    border: 1px solid var(--line-2); font-variant-numeric: tabular-nums; font-size: var(--t-xs);
+  }
+  .steg-spor li[aria-current='step'] .steg-nr { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+  .steg-spor li[data-ferdig='ja'] .steg-nr { background: var(--ja); border-color: var(--ja); color: var(--paper); }
+  .steg[hidden] { display: none; }
+  .ferdighetsvelger { display: grid; gap: var(--s-3); }
+  .valgte { min-height: 2rem; }
+  .kategori { font-size: var(--t-sm); color: var(--ink-2); margin-top: var(--s-2); }
+  .oppsummer dt { font-size: var(--t-xs); color: var(--ink-3); }
+  .oppsummer dd { margin: 0 0 var(--s-3); }
+  .vilkar { display: flex; gap: var(--s-3); align-items: start; font-weight: 400; }
+  .vilkar input { width: auto; margin-top: 0.25rem; }
+</style>
+</head>
+<body>
+<header class="topp"><div class="innhold"></div></header>
+
+<main class="smal seksjon">
+  <div class="seksjon-hode">
+    <h1>Legg ut stilling</h1>
+    <p class="tekst">Jo mer presist du beskriver kravene, jo bedre blir søkerne du får.</p>
+  </div>
+
+  <ol class="steg-spor" id="spor">
+    <li aria-current="step"><span class="steg-nr">1</span> Om stillingen</li>
+    <li><span class="steg-nr">2</span> Krav</li>
+    <li><span class="steg-nr">3</span> Oppsummering</li>
+  </ol>
+
+  <p class="melding melding-feil" id="feil" role="alert"></p>
+
+  <form id="skjema">
+    <fieldset class="steg kort" id="steg-1">
+      <legend class="skjult">Om stillingen</legend>
+      <label>Stillingstittel
+        <input id="tittel" required placeholder="Butikkmedarbeider">
+      </label>
+      <label>Beskrivelse
+        <textarea id="beskrivelse" rows="6" placeholder="Hva går jobben ut på, og hva slags arbeidsplass er dere?"></textarea>
+      </label>
+      <div class="to-kolonner">
+        <label>Kommune
+          <select id="kommune">
+            <option>Oslo</option><option>Bærum</option><option>Asker</option>
+            <option>Lillestrøm</option><option>Lørenskog</option><option>Nordre Follo</option>
+            <option>Ullensaker</option><option>Rælingen</option><option>Nesodden</option><option>Drammen</option>
+          </select>
+        </label>
+        <label>Ønsket oppstart
+          <input type="date" id="oppstart">
+        </label>
+      </div>
+    </fieldset>
+
+    <fieldset class="steg kort" id="steg-2" hidden>
+      <legend class="skjult">Krav</legend>
+
+      <div class="ferdighetsvelger">
+        <div>
+          <strong>Påkrevde ferdigheter</strong>
+          <p class="svak">Disse veier tyngst i matchingen. Velg tre til fem.</p>
+        </div>
+        <input id="sok" placeholder="Søk i ferdigheter">
+        <div class="merker valgte" id="valgte-pakrevd"></div>
+        <div id="ferdighetsliste"></div>
+      </div>
+
+      <div class="ferdighetsvelger" style="border-top: var(--kant); padding-top: var(--s-4)">
+        <div>
+          <strong>Ønskede ferdigheter</strong>
+          <p class="svak">Fint å ha, men ikke et krav.</p>
+        </div>
+        <div class="merker" id="onskede"></div>
+      </div>
+
+      <div class="to-kolonner" style="border-top: var(--kant); padding-top: var(--s-4)">
+        <label>Minste utdanningsnivå
+          <select id="utdanning">
+            <option value="grunnskole">Grunnskole</option>
+            <option value="videregaende">Videregående</option>
+            <option value="fagbrev">Fagbrev</option>
+            <option value="bachelor">Bachelorgrad</option>
+            <option value="master">Mastergrad</option>
+          </select>
+        </label>
+        <label>År med erfaring
+          <div class="rad" style="flex-wrap: nowrap">
+            <input type="number" id="erfaring-min" min="0" max="40" value="0" aria-label="Minst">
+            <span class="svak">til</span>
+            <input type="number" id="erfaring-maks" min="0" max="99" value="99" aria-label="Høyst">
+          </div>
+        </label>
+        <label>Norsk
+          <select id="norsk">
+            <option value="ingen">Ikke nødvendig</option>
+            <option value="grunnleggende">Grunnleggende</option>
+            <option value="god" selected>God</option>
+            <option value="flytende">Flytende</option>
+          </select>
+        </label>
+        <label>Engelsk
+          <select id="engelsk">
+            <option value="ingen" selected>Ikke nødvendig</option>
+            <option value="grunnleggende">Grunnleggende</option>
+            <option value="god">God</option>
+            <option value="flytende">Flytende</option>
+          </select>
+        </label>
+      </div>
+
+      <label class="vilkar">
+        <input type="checkbox" id="sprak-absolutt">
+        <span>Språkkravet er absolutt. Kandidater som ikke oppfyller det, matches ikke i det hele tatt.</span>
+      </label>
+    </fieldset>
+
+    <fieldset class="steg kort" id="steg-3" hidden>
+      <legend class="skjult">Oppsummering</legend>
+      <dl class="oppsummer" id="oppsummering"></dl>
+      <label class="vilkar" style="border-top: var(--kant); padding-top: var(--s-4)">
+        <input type="checkbox" id="godta" required>
+        <span>Jeg forplikter meg til å intervjue inntil 10 kandidater fra shortlisten. Det er dette som gjør at Jobbo kan garantere kandidatene et intervju.</span>
+      </label>
+    </fieldset>
+
+    <div class="rad-mellom" style="margin-top: var(--s-5)">
+      <button class="knapp knapp-2" type="button" id="forrige" hidden>Forrige</button>
+      <span class="vokser"></span>
+      <button class="knapp" type="button" id="neste">Neste</button>
+      <button class="knapp" type="submit" id="lagre" hidden>Til betaling</button>
+    </div>
+  </form>
+</main>
+
+<script type="module" src="./ny-stilling.js"></script>
+</body>
+</html>

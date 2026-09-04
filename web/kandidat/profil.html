@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="nb">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Profilen din — Jobbo</title>
+<link rel="icon" href="/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Familjen+Grotesk:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap">
+<link rel="stylesheet" href="/shared/tokens.css">
+<link rel="stylesheet" href="/shared/base.css">
+<link rel="stylesheet" href="/shared/components.css">
+<link rel="stylesheet" href="/shared/cv.css">
+<style>
+  main { padding-block: var(--s-5) var(--s-8); }
+  .profillayout { display: grid; gap: var(--s-6); align-items: start; }
+  @media (min-width: 62rem) { .profillayout { grid-template-columns: 1fr 22rem; } }
+  .forhandsvis { position: sticky; top: 5rem; display: grid; gap: var(--s-3); }
+  .forhandsvis-merke { font-size: var(--t-sm); color: var(--ink-2); font-weight: 600; }
+  .post-rad { display: grid; gap: var(--s-3); padding: var(--s-4); border: var(--kant); border-radius: var(--radius); background: var(--surface); }
+  .lagre-linje {
+    position: sticky; bottom: 0; background: var(--paper);
+    border-top: var(--kant); padding-block: var(--s-3); margin-top: var(--s-5);
+    display: flex; gap: var(--s-3); align-items: center; flex-wrap: wrap;
+  }
+  .kat-tittel { font-size: var(--t-sm); color: var(--ink-2); margin-top: var(--s-3); }
+</style>
+</head>
+<body>
+<header class="topp"><div class="innhold"></div></header>
+
+<main class="innhold">
+  <div class="seksjon-hode">
+    <h1>Profilen din</h1>
+    <p class="tekst">Dette er CV-en din. Jo mer du fyller ut, jo bedre treffer matchene.</p>
+  </div>
+
+  <div class="profillayout">
+    <form class="stabel-6" id="skjema">
+      <fieldset class="kort">
+        <legend>Om deg</legend>
+        <div class="to-kolonner">
+          <label>Fornavn <input id="fornavn" required></label>
+          <label>Etternavn <input id="etternavn" required></label>
+          <label>Telefon <input id="telefon" inputmode="tel"></label>
+          <label>Kommune
+            <select id="kommune">
+              <option>Oslo</option><option>Bærum</option><option>Asker</option>
+              <option>Lillestrøm</option><option>Lørenskog</option><option>Nordre Follo</option>
+              <option>Ullensaker</option><option>Rælingen</option><option>Nesodden</option><option>Drammen</option>
+            </select>
+          </label>
+        </div>
+        <label>Kort om deg
+          <textarea id="om" rows="3" placeholder="To setninger om hva du er god til og hva du ser etter."></textarea>
+        </label>
+      </fieldset>
+
+      <fieldset class="kort">
+        <legend>Erfaring</legend>
+        <div class="stabel" id="erfaringsliste"></div>
+        <button class="knapp knapp-2" type="button" id="legg-til-erfaring">Legg til erfaring</button>
+      </fieldset>
+
+      <fieldset class="kort">
+        <legend>Utdanning</legend>
+        <div class="stabel" id="utdanningsliste"></div>
+        <button class="knapp knapp-2" type="button" id="legg-til-utdanning">Legg til utdanning</button>
+        <label style="margin-top: var(--s-3)">Høyeste fullførte utdanning
+          <select id="hoyeste">
+            <option value="grunnskole">Grunnskole</option>
+            <option value="videregaende">Videregående</option>
+            <option value="fagbrev">Fagbrev</option>
+            <option value="bachelor">Bachelorgrad</option>
+            <option value="master">Mastergrad</option>
+            <option value="phd">Doktorgrad</option>
+          </select>
+        </label>
+      </fieldset>
+
+      <fieldset class="kort">
+        <legend>Ferdigheter</legend>
+        <p class="svak">Velg alt du kan. Dette er det som veier tyngst når vi matcher deg.</p>
+        <input id="sok" placeholder="Søk i ferdigheter">
+        <div class="merker" id="valgte"></div>
+        <div id="ferdighetsliste"></div>
+      </fieldset>
+
+      <fieldset class="kort">
+        <legend>Språk og tilgjengelighet</legend>
+        <div class="to-kolonner">
+          <label>Norsk
+            <select id="norsk">
+              <option value="ingen">Ingen</option><option value="grunnleggende">Grunnleggende</option>
+              <option value="god">God</option><option value="flytende">Flytende</option>
+              <option value="morsmal">Morsmål</option>
+            </select>
+          </label>
+          <label>Engelsk
+            <select id="engelsk">
+              <option value="ingen">Ingen</option><option value="grunnleggende">Grunnleggende</option>
+              <option value="god">God</option><option value="flytende">Flytende</option>
+              <option value="morsmal">Morsmål</option>
+            </select>
+          </label>
+          <label>Kan begynne fra <input type="date" id="tilgjengelig"></label>
+          <label>Også åpen for jobb i
+            <select id="andre-kommuner" multiple size="4">
+              <option>Oslo</option><option>Bærum</option><option>Asker</option>
+              <option>Lillestrøm</option><option>Lørenskog</option><option>Nordre Follo</option>
+              <option>Ullensaker</option><option>Drammen</option>
+            </select>
+          </label>
+        </div>
+      </fieldset>
+
+      <div class="lagre-linje">
+        <button class="knapp" type="submit" id="lagre">Lagre profilen</button>
+        <a class="knapp knapp-2" href="./cv.html">Se CV-en</a>
+        <p class="melding melding-feil" id="feil" role="alert"></p>
+        <p class="melding melding-ok" id="ok" role="status"></p>
+      </div>
+    </form>
+
+    <aside class="forhandsvis">
+      <span class="forhandsvis-merke">Slik ser arbeidsgiveren deg</span>
+      <article class="kort cv" id="forhandsvisning"></article>
+    </aside>
+  </div>
+</main>
+
+<script type="module" src="./profil.js"></script>
+</body>
+</html>

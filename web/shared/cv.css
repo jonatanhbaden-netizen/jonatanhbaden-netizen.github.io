@@ -1,0 +1,25 @@
+/* The profile IS the CV — one renderer, used by the employer view, the
+   candidate's live preview, and the print page. */
+.cv { display: grid; gap: var(--s-5); }
+.cv-hode { display: grid; gap: var(--s-2); border-bottom: 1px solid var(--line-2); padding-bottom: var(--s-4); }
+.cv-navn { font-size: var(--t-lg); font-weight: 600; letter-spacing: -0.02em; }
+.cv-kontakt { display: flex; flex-wrap: wrap; gap: var(--s-4); color: var(--ink-2); font-size: var(--t-sm); }
+.cv-seksjon { display: grid; gap: var(--s-3); }
+.cv-seksjon > h3 { font-size: var(--t-sm); font-weight: 600; color: var(--ink-2); }
+.cv-post { display: grid; gap: 0.15rem; padding-left: var(--s-4); border-left: 2px solid var(--line); }
+.cv-post-tittel { font-weight: 600; }
+.cv-post-sted { color: var(--ink-2); font-size: var(--t-sm); }
+.cv-post-tid { color: var(--ink-3); font-size: var(--t-sm); font-variant-numeric: tabular-nums; }
+.cv-fakta { display: grid; gap: var(--s-2); grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr)); }
+.cv-fakta div { display: grid; gap: 0.1rem; }
+.cv-fakta dt { font-size: var(--t-xs); color: var(--ink-3); }
+.cv-fakta dd { margin: 0; font-size: var(--t-sm); font-weight: 500; }
+.cv-tom { color: var(--ink-3); font-style: italic; }
+
+@media print {
+  .topp, .knapp, .sidepanel, .cv-utskrift-skjul { display: none; }
+  body { background: #fff; font-size: 10.5pt; }
+  .cv { border: 0; padding: 0; gap: 1.2rem; }
+  main { width: auto; padding: 0; }
+  @page { margin: 18mm; }
+}

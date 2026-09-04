@@ -1,0 +1,54 @@
+/* Jobbo design tokens. Every value in the interface comes from here. */
+:root {
+  /* Colour ------------------------------------------------------------- */
+  --ink:        #16233A;   /* headings, primary text, solid buttons        */
+  --ink-2:      #56617A;   /* secondary text                               */
+  --ink-3:      #8A93A6;   /* tertiary, metadata                           */
+  --paper:      #FAF8F4;   /* page ground                                  */
+  --surface:    #FFFFFF;   /* raised surfaces                              */
+  --surface-2:  #F2EFE9;   /* inset surfaces, empty slots                  */
+  --line:       #E2DDD3;   /* rules and borders                            */
+  --line-2:     #CFC8BA;   /* stronger rules                               */
+  --ja:         #1E6E4A;   /* requirement met                              */
+  --ja-svak:    #E4EFE8;
+  --nei:        #9A3F1B;   /* requirement missing                          */
+  --nei-svak:   #F6E9E2;
+  --varsel:     #8A6D1F;   /* attention, waiting                           */
+  --varsel-svak:#F5EEDC;
+
+  /* Type ---------------------------------------------------------------- */
+  --font-ui:    'Familjen Grotesk', ui-sans-serif, system-ui, sans-serif;
+  --font-tekst: 'Source Serif 4', Georgia, 'Times New Roman', serif;
+
+  --t-xs:   clamp(0.72rem, 0.70rem + 0.10vw, 0.78rem);
+  --t-sm:   clamp(0.82rem, 0.79rem + 0.14vw, 0.90rem);
+  --t-base: clamp(0.95rem, 0.92rem + 0.16vw, 1.05rem);
+  --t-md:   clamp(1.10rem, 1.04rem + 0.30vw, 1.30rem);
+  --t-lg:   clamp(1.35rem, 1.20rem + 0.75vw, 1.85rem);
+  --t-xl:   clamp(1.75rem, 1.40rem + 1.70vw, 2.90rem);
+
+  --lh-tett:  1.2;
+  --lh-ui:    1.45;
+  --lh-tekst: 1.65;
+
+  /* Space --------------------------------------------------------------- */
+  --s-1: 0.25rem;
+  --s-2: 0.5rem;
+  --s-3: 0.75rem;
+  --s-4: 1rem;
+  --s-5: 1.5rem;
+  --s-6: 2rem;
+  --s-7: 3rem;
+  --s-8: 4.5rem;
+
+  /* Form ---------------------------------------------------------------- */
+  --radius:    6px;
+  --radius-sm: 3px;
+  --bredde:    min(92vw, 72rem);
+  --bredde-smal: min(92vw, 40rem);
+  --kant:      1px solid var(--line);
+  --loft:      0 1px 2px rgba(22, 35, 58, 0.06);
+
+  --fart: 160ms;
+  --kurve: cubic-bezier(0.2, 0, 0.2, 1);
+}

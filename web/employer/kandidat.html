@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="nb">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kandidat — Jobbo</title>
+<link rel="icon" href="/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Familjen+Grotesk:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap">
+<link rel="stylesheet" href="/shared/tokens.css">
+<link rel="stylesheet" href="/shared/base.css">
+<link rel="stylesheet" href="/shared/components.css">
+<link rel="stylesheet" href="/shared/cv.css">
+<style>
+  .tilbake { font-size: var(--t-sm); color: var(--ink-2); text-decoration: none; }
+  .kandidatlayout { display: grid; gap: var(--s-6); align-items: start; }
+  @media (min-width: 60rem) { .kandidatlayout { grid-template-columns: 1fr 20rem; } }
+  .sidepanel { position: sticky; top: 5rem; display: grid; gap: var(--s-4); }
+</style>
+</head>
+<body>
+<header class="topp"><div class="innhold"></div></header>
+
+<main class="innhold seksjon">
+  <a class="tilbake" id="tilbake" href="./dashboard.html">Tilbake til søkerne</a>
+  <p class="melding melding-feil" id="feil" role="alert"></p>
+
+  <div class="kandidatlayout" style="margin-top: var(--s-4)">
+    <article class="kort cv" id="cv"></article>
+    <aside class="sidepanel" id="panel"></aside>
+  </div>
+</main>
+
+<script type="module" src="./kandidat.js"></script>
+</body>
+</html>

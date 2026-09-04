@@ -1,0 +1,67 @@
+*, *::before, *::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-ui);
+  font-size: var(--t-base);
+  line-height: var(--lh-ui);
+  font-feature-settings: 'ss01';
+}
+
+h1, h2, h3, h4 { margin: 0; line-height: var(--lh-tett); font-weight: 600; letter-spacing: -0.015em; }
+h1 { font-size: var(--t-xl); }
+h2 { font-size: var(--t-lg); }
+h3 { font-size: var(--t-md); }
+p  { margin: 0; }
+
+a { color: inherit; text-decoration-color: var(--line-2); text-underline-offset: 3px; }
+a:hover { text-decoration-color: currentColor; }
+
+img { max-width: 100%; display: block; }
+
+:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+
+.innhold { width: var(--bredde); margin-inline: auto; }
+.smal    { width: var(--bredde-smal); margin-inline: auto; }
+
+/* Long-form text the user wrote, as opposed to the interface's own voice. */
+.tekst {
+  font-family: var(--font-tekst);
+  line-height: var(--lh-tekst);
+  color: var(--ink-2);
+  max-width: 68ch;
+}
+
+.stabel   { display: grid; gap: var(--s-4); }
+.stabel-2 { display: grid; gap: var(--s-2); }
+.stabel-6 { display: grid; gap: var(--s-6); }
+.rad      { display: flex; align-items: center; gap: var(--s-3); flex-wrap: wrap; }
+.rad-mellom { display: flex; align-items: center; justify-content: space-between; gap: var(--s-4); flex-wrap: wrap; }
+.vokser   { flex: 1 1 auto; }
+
+.dempet   { color: var(--ink-2); }
+.svak     { color: var(--ink-3); font-size: var(--t-sm); }
+.senter   { text-align: center; }
+
+.skjult {
+  position: absolute; width: 1px; height: 1px;
+  padding: 0; margin: -1px; overflow: hidden;
+  clip-path: inset(50%); white-space: nowrap;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms;
+    animation-iteration-count: 1;
+    transition-duration: 0.01ms;
+    scroll-behavior: auto;
+  }
+}

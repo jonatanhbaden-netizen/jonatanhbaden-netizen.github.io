@@ -1,0 +1,222 @@
+/* ---------------------------------------------------------------------------
+   Topplinje
+   --------------------------------------------------------------------------- */
+.topp {
+  background: var(--surface);
+  border-bottom: var(--kant);
+  position: sticky; top: 0; z-index: 10;
+}
+.topp > .innhold {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: var(--s-4); min-height: 3.75rem;
+}
+.merke {
+  font-size: var(--t-md); font-weight: 600; letter-spacing: -0.03em;
+  text-decoration: none; display: inline-flex; align-items: baseline; gap: 0.35rem;
+}
+.merke-punkt {
+  width: 0.45rem; height: 0.45rem; border-radius: 50%;
+  background: var(--ja); display: inline-block;
+}
+.topp nav { display: flex; align-items: center; gap: var(--s-4); font-size: var(--t-sm); }
+.topp nav a { text-decoration: none; color: var(--ink-2); }
+.topp nav a:hover, .topp nav a[aria-current='page'] { color: var(--ink); }
+.topp nav a[aria-current='page'] { font-weight: 600; }
+
+/* ---------------------------------------------------------------------------
+   Knapper
+   --------------------------------------------------------------------------- */
+.knapp {
+  font: inherit; font-weight: 500;
+  padding: 0.55rem 1rem;
+  border-radius: var(--radius);
+  border: 1px solid transparent;
+  background: var(--ink); color: var(--paper);
+  cursor: pointer; text-decoration: none;
+  display: inline-flex; align-items: center; justify-content: center; gap: var(--s-2);
+  transition: background var(--fart) var(--kurve), border-color var(--fart) var(--kurve);
+}
+.knapp:hover { background: #0E1728; }
+.knapp:disabled { background: var(--line-2); color: var(--surface); cursor: not-allowed; }
+.knapp-2 { background: var(--surface); color: var(--ink); border-color: var(--line-2); }
+.knapp-2:hover { background: var(--surface-2); }
+.knapp-3 { background: none; color: var(--ink-2); padding-inline: 0.4rem; }
+.knapp-3:hover { background: none; color: var(--ink); }
+.knapp-liten { padding: 0.35rem 0.65rem; font-size: var(--t-sm); }
+.knapp-full { width: 100%; }
+
+/* ---------------------------------------------------------------------------
+   Kort og flater
+   --------------------------------------------------------------------------- */
+.kort {
+  background: var(--surface);
+  border: var(--kant);
+  border-radius: var(--radius);
+  padding: var(--s-5);
+}
+.felt { background: var(--surface-2); border-radius: var(--radius); padding: var(--s-4); }
+
+/* ---------------------------------------------------------------------------
+   Score — alltid sammen med begrunnelsen sin
+   --------------------------------------------------------------------------- */
+.score {
+  display: inline-grid; justify-items: center; gap: 0.1rem;
+  min-width: 3.25rem; padding: 0.35rem 0.5rem;
+  border-radius: var(--radius); border: 1px solid var(--line);
+  background: var(--surface-2);
+}
+.score-tall {
+  font-size: var(--t-md); font-weight: 600; line-height: 1;
+  font-variant-numeric: tabular-nums; letter-spacing: -0.03em;
+}
+.score-merkelapp { font-size: var(--t-xs); color: var(--ink-3); line-height: 1; }
+.score-ja  { background: var(--ja-svak);  border-color: #C6DCD0; }
+.score-ja .score-tall { color: var(--ja); }
+.score-nei { background: var(--surface-2); }
+.score-nei .score-tall { color: var(--ink-2); }
+
+/* Begrunnelser */
+.grunner { display: flex; flex-wrap: wrap; gap: var(--s-2); list-style: none; margin: 0; padding: 0; }
+.grunn {
+  font-size: var(--t-sm); line-height: 1.3;
+  padding: 0.25rem 0.55rem 0.3rem;
+  border-radius: var(--radius-sm);
+  display: inline-flex; align-items: center; gap: 0.35rem;
+}
+.grunn::before { font-size: 0.85em; line-height: 1; }
+.grunn-ja  { background: var(--ja-svak);  color: var(--ja); }
+.grunn-ja::before  { content: '✓'; }
+.grunn-nei { background: var(--nei-svak); color: var(--nei); }
+.grunn-nei::before { content: '✕'; }
+
+/* ---------------------------------------------------------------------------
+   Rasjonering som synlige plasser — aldri en prosentbar
+   --------------------------------------------------------------------------- */
+.plasser { display: flex; gap: 3px; align-items: center; }
+.plass {
+  width: 1.35rem; height: 0.5rem; border-radius: 1px;
+  background: var(--surface-2); border: 1px solid var(--line);
+}
+.plass-fylt { background: var(--ja); border-color: var(--ja); }
+.plass-sma .plass { width: 1.1rem; }
+.plasser-tekst { font-size: var(--t-sm); color: var(--ink-2); }
+
+.garanti {
+  display: flex; align-items: center; gap: var(--s-4); flex-wrap: wrap;
+  padding: var(--s-3) var(--s-4);
+  background: var(--ja-svak); border: 1px solid #C6DCD0;
+  border-radius: var(--radius);
+}
+.garanti strong { font-weight: 600; }
+
+/* ---------------------------------------------------------------------------
+   Rangert liste — innholdet ER en rangering, derfor nummer
+   --------------------------------------------------------------------------- */
+.rangering { list-style: none; margin: 0; padding: 0; display: grid; }
+.rangering > li { border-bottom: var(--kant); }
+.rangering > li:first-child { border-top: var(--kant); }
+
+.rad-kandidat {
+  display: grid; gap: var(--s-3) var(--s-4);
+  grid-template-columns: 2rem 1fr auto;
+  align-items: start;
+  padding: var(--s-4) var(--s-2);
+  background: none; border: 0; width: 100%; text-align: left;
+  font: inherit; color: inherit; cursor: pointer;
+  transition: background var(--fart) var(--kurve);
+}
+.rad-kandidat:hover { background: var(--surface); }
+.rangnr {
+  font-variant-numeric: tabular-nums; font-weight: 600;
+  color: var(--ink-3); padding-top: 0.15rem;
+}
+.rad-navn { font-weight: 600; }
+.rad-grunner { grid-column: 2 / -1; }
+
+.venteliste-skille {
+  display: flex; align-items: center; gap: var(--s-3);
+  padding: var(--s-4) var(--s-2) var(--s-2);
+  color: var(--varsel); font-size: var(--t-sm);
+}
+.venteliste-skille::after {
+  content: ''; flex: 1; height: 1px; background: var(--line-2);
+}
+
+/* ---------------------------------------------------------------------------
+   Statusmerke
+   --------------------------------------------------------------------------- */
+.status {
+  font-size: var(--t-xs); font-weight: 500;
+  padding: 0.22rem 0.5rem; border-radius: 999px;
+  border: 1px solid var(--line-2); background: var(--surface); color: var(--ink-2);
+  white-space: nowrap;
+}
+.status-sett    { background: var(--surface-2); }
+.status-intervju{ background: var(--ja-svak);  border-color: #C6DCD0; color: var(--ja); }
+.status-tilbud  { background: var(--ja); border-color: var(--ja); color: var(--paper); }
+.status-avslag  { background: var(--nei-svak); border-color: #E6CFC2; color: var(--nei); }
+
+/* ---------------------------------------------------------------------------
+   Trakt: kvalifiserte → søkt → intervju
+   --------------------------------------------------------------------------- */
+.trakt { display: grid; grid-template-columns: repeat(3, auto); gap: var(--s-5); }
+.trakt-steg { display: grid; gap: 0.1rem; }
+.trakt-tall {
+  font-size: var(--t-lg); font-weight: 600; line-height: 1;
+  font-variant-numeric: tabular-nums; letter-spacing: -0.03em;
+}
+.trakt-navn { font-size: var(--t-sm); color: var(--ink-2); }
+.trakt-steg + .trakt-steg { position: relative; padding-left: var(--s-5); }
+.trakt-steg + .trakt-steg::before {
+  content: ''; position: absolute; left: 0; top: 0.3rem; bottom: 0.3rem;
+  width: 1px; background: var(--line);
+}
+
+/* ---------------------------------------------------------------------------
+   Skjema
+   --------------------------------------------------------------------------- */
+label { display: grid; gap: var(--s-2); font-size: var(--t-sm); font-weight: 500; }
+input, select, textarea {
+  font: inherit; font-size: var(--t-base); font-family: var(--font-ui);
+  padding: 0.55rem 0.7rem;
+  border: 1px solid var(--line-2); border-radius: var(--radius);
+  background: var(--surface); color: var(--ink); width: 100%;
+}
+textarea { font-family: var(--font-tekst); line-height: var(--lh-tekst); resize: vertical; }
+input:focus, select:focus, textarea:focus { outline: 2px solid var(--ink); outline-offset: 0; border-color: var(--ink); }
+fieldset { border: 0; padding: 0; margin: 0; display: grid; gap: var(--s-4); }
+legend { padding: 0; font-weight: 600; font-size: var(--t-md); }
+.to-kolonner { display: grid; gap: var(--s-4); }
+@media (min-width: 40rem) { .to-kolonner { grid-template-columns: 1fr 1fr; } }
+
+/* Ferdighetsvelger */
+.merker { display: flex; flex-wrap: wrap; gap: var(--s-2); }
+.merke-valg {
+  font: inherit; font-size: var(--t-sm); cursor: pointer;
+  padding: 0.3rem 0.6rem; border-radius: 999px;
+  border: 1px solid var(--line-2); background: var(--surface); color: var(--ink-2);
+  transition: background var(--fart) var(--kurve), color var(--fart) var(--kurve);
+}
+.merke-valg:hover { border-color: var(--ink-3); }
+.merke-valg[aria-pressed='true'] {
+  background: var(--ink); border-color: var(--ink); color: var(--paper);
+}
+
+/* ---------------------------------------------------------------------------
+   Meldinger
+   --------------------------------------------------------------------------- */
+.melding { padding: var(--s-3) var(--s-4); border-radius: var(--radius); font-size: var(--t-sm); }
+.melding-feil { background: var(--nei-svak); color: var(--nei); border: 1px solid #E6CFC2; }
+.melding-ok   { background: var(--ja-svak); color: var(--ja); border: 1px solid #C6DCD0; }
+.melding:empty { display: none; }
+
+.tom {
+  display: grid; gap: var(--s-3); justify-items: start;
+  padding: var(--s-6); border: 1px dashed var(--line-2); border-radius: var(--radius);
+}
+
+/* ---------------------------------------------------------------------------
+   Seksjonshoder
+   --------------------------------------------------------------------------- */
+.seksjon { padding-block: var(--s-6); }
+.seksjon-hode { display: grid; gap: var(--s-2); margin-bottom: var(--s-4); }

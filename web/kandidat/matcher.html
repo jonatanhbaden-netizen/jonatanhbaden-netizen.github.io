@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="nb">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dine matcher — Jobbo</title>
+<link rel="icon" href="/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Familjen+Grotesk:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap">
+<link rel="stylesheet" href="/shared/tokens.css">
+<link rel="stylesheet" href="/shared/base.css">
+<link rel="stylesheet" href="/shared/components.css">
+<style>
+  main { padding-block: var(--s-5) var(--s-8); display: grid; gap: var(--s-5); }
+  .kvote { display: flex; align-items: center; gap: var(--s-3); flex-wrap: wrap;
+           padding: var(--s-3) var(--s-4); border: var(--kant); border-radius: var(--radius);
+           background: var(--surface); }
+  .matchliste { display: grid; gap: var(--s-4); }
+  .matchkort { display: grid; gap: var(--s-3); }
+  .matchkort h2 { font-size: var(--t-md); }
+  .firma { color: var(--ink-2); font-size: var(--t-sm); }
+  .derfor { font-size: var(--t-sm); font-weight: 600; color: var(--ink-2); }
+</style>
+</head>
+<body>
+<header class="topp"><div class="innhold"></div></header>
+
+<main class="smal">
+  <div class="seksjon-hode">
+    <h1>Jobber som passer deg</h1>
+    <p class="tekst">Vi viser deg maks fem om gangen. Det er sånn arbeidsgiverne slipper å drukne i søknader — og du slipper å søke i blinde.</p>
+  </div>
+
+  <div class="kvote" id="kvote"></div>
+  <p class="melding melding-feil" id="feil" role="alert"></p>
+  <p class="melding melding-ok" id="ok" role="status"></p>
+
+  <div class="matchliste" id="liste"></div>
+</main>
+
+<script type="module" src="./matcher.js"></script>
+</body>
+</html>

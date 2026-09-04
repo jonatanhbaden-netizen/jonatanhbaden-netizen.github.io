@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="nb">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Jobbo</title>
+<link rel="icon" href="/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Familjen+Grotesk:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap">
+<link rel="stylesheet" href="/shared/tokens.css">
+<link rel="stylesheet" href="/shared/base.css">
+<link rel="stylesheet" href="/shared/components.css">
+<style>
+  .hero { padding-block: var(--s-8) var(--s-7); }
+  .hero h1 { max-width: 18ch; }
+  .hero-brod { margin-top: var(--s-4); font-size: var(--t-md); }
+  .tall-rad {
+    display: grid; gap: var(--s-5); margin-top: var(--s-7);
+    grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr));
+    border-top: 1px solid var(--line-2); padding-top: var(--s-5);
+  }
+  .stort-tall {
+    font-size: var(--t-xl); font-weight: 600; line-height: 1;
+    letter-spacing: -0.04em; font-variant-numeric: tabular-nums;
+  }
+  .tall-rad p { margin-top: var(--s-2); color: var(--ink-2); font-size: var(--t-sm); max-width: 26ch; }
+  .doerer { display: grid; gap: var(--s-4); margin-top: var(--s-7); }
+  @media (min-width: 48rem) { .doerer { grid-template-columns: 1fr 1fr; } }
+  .doer { display: grid; gap: var(--s-3); align-content: start; text-decoration: none; }
+  .doer:hover { border-color: var(--line-2); }
+  .demo-boks { margin-top: var(--s-7); font-size: var(--t-sm); }
+  .demo-boks code { font-family: var(--font-ui); font-weight: 500; }
+  .demo-boks li { margin-bottom: var(--s-1); }
+</style>
+</head>
+<body>
+<header class="topp">
+  <div class="innhold">
+    <a class="merke" href="/">Jobbo<span class="merke-punkt" aria-hidden="true"></span></a>
+    <nav><a href="/employer/index.html">For arbeidsgivere</a><a href="/kandidat/index.html">For jobbsøkere</a></nav>
+  </div>
+</header>
+
+<main class="innhold">
+  <section class="hero">
+    <h1>Ti kvalifiserte søkere. Ikke fire hundre tilfeldige.</h1>
+    <p class="hero-brod tekst">
+      Jobbo matcher jobbsøkere mot stillinger de faktisk er kvalifisert for, og lar hver
+      kandidat søke på maks fem om gangen. Arbeidsgiveren får en rangert liste med de ti
+      beste — og kan garantere intervju til alle sammen.
+    </p>
+
+    <div class="tall-rad">
+      <div>
+        <div class="stort-tall">4 900</div>
+        <p>ledige stillinger i Oslo</p>
+      </div>
+      <div>
+        <div class="stort-tall">12 000</div>
+        <p>registrerte jobbsøkere i samme by</p>
+      </div>
+      <div>
+        <div class="stort-tall">400</div>
+        <p>søknader på én enkelt stilling, der to får svar</p>
+      </div>
+      <div>
+        <div class="stort-tall">10</div>
+        <p>garanterte intervjuer per stilling hos Jobbo</p>
+        <div class="plasser" style="margin-top: var(--s-3)" aria-hidden="true">
+          <span class="plass plass-fylt"></span><span class="plass plass-fylt"></span>
+          <span class="plass plass-fylt"></span><span class="plass plass-fylt"></span>
+          <span class="plass plass-fylt"></span><span class="plass plass-fylt"></span>
+          <span class="plass plass-fylt"></span><span class="plass plass-fylt"></span>
+          <span class="plass plass-fylt"></span><span class="plass plass-fylt"></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="doerer">
+      <a class="kort doer" href="/employer/index.html">
+        <h2>Jeg skal ansette</h2>
+        <p class="tekst">Legg ut en stilling for 5 000 kr og få en rangert liste med kvalifiserte søkere. Finn tar 10 000.</p>
+        <span class="knapp" style="justify-self: start">Logg inn som arbeidsgiver</span>
+      </a>
+      <a class="kort doer" href="/kandidat/index.html">
+        <h2>Jeg søker jobb</h2>
+        <p class="tekst">Fyll ut profilen din én gang. Få tre til fem jobber du faktisk passer til, med begrunnelse.</p>
+        <span class="knapp knapp-2" style="justify-self: start">Logg inn som jobbsøker</span>
+      </a>
+    </div>
+
+    <div class="kort demo-boks">
+      <h3>Demokontoer</h3>
+      <p class="dempet" style="margin-top: var(--s-2)">Passord for alle: <code>jobbo-demo</code></p>
+      <ul style="margin: var(--s-3) 0 0; padding-left: 1.1rem">
+        <li><code>arbeidsgiver1@jobbo.demo</code> — Grünerløkka Matsenter, tre publiserte stillinger</li>
+        <li><code>arbeidsgiver2@jobbo.demo</code> — Storo Sport, én stilling som utkast</li>
+        <li><code>kandidat@jobbo.demo</code> — halvferdig profil, ingen matcher ennå</li>
+      </ul>
+    </div>
+  </section>
+</main>
+</body>
+</html>

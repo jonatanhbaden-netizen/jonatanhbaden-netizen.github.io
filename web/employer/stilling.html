@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="nb">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Søkere — Jobbo</title>
+<link rel="icon" href="/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Familjen+Grotesk:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap">
+<link rel="stylesheet" href="/shared/tokens.css">
+<link rel="stylesheet" href="/shared/base.css">
+<link rel="stylesheet" href="/shared/components.css">
+<style>
+  .tilbake { font-size: var(--t-sm); color: var(--ink-2); text-decoration: none; display: inline-block; margin-bottom: var(--s-3); }
+  .oppsummering { display: flex; gap: var(--s-5); flex-wrap: wrap; align-items: baseline; margin-top: var(--s-3); }
+  .opp-tall { font-weight: 600; font-variant-numeric: tabular-nums; }
+  .handlinger { display: flex; gap: var(--s-2); flex-wrap: wrap; justify-content: flex-end; }
+  .venteliste[hidden] { display: none; }
+  dialog {
+    border: var(--kant); border-radius: var(--radius); padding: var(--s-5);
+    max-width: min(92vw, 26rem); background: var(--surface); color: var(--ink);
+  }
+  dialog::backdrop { background: rgba(22, 35, 58, 0.35); }
+</style>
+</head>
+<body>
+<header class="topp"><div class="innhold"></div></header>
+
+<main class="innhold seksjon">
+  <a class="tilbake" href="./dashboard.html">Tilbake til stillingene</a>
+
+  <div class="seksjon-hode">
+    <h1 id="tittel">…</h1>
+    <div class="oppsummering" id="oppsummering"></div>
+  </div>
+
+  <div class="garanti" id="garanti" style="margin-bottom: var(--s-6)"></div>
+
+  <p class="melding melding-feil" id="feil" role="alert"></p>
+
+  <section>
+    <h2 class="skjult">Rangerte søkere</h2>
+    <ol class="rangering" id="shortlist"></ol>
+  </section>
+
+  <section id="venteliste-seksjon" hidden>
+    <button class="knapp knapp-3 venteliste-skille" type="button" id="vis-venteliste" aria-expanded="false" aria-controls="venteliste"></button>
+    <ol class="rangering venteliste" id="venteliste" hidden></ol>
+  </section>
+</main>
+
+<dialog id="intervju-dialog">
+  <form method="dialog" class="stabel">
+    <h3>Book intervju</h3>
+    <p class="tekst" id="intervju-navn"></p>
+    <label>Tidspunkt
+      <input type="datetime-local" id="intervju-tid" required>
+    </label>
+    <div class="rad" style="justify-content: flex-end">
+      <button class="knapp knapp-2" value="avbryt" type="submit">Avbryt</button>
+      <button class="knapp" value="book" type="submit" id="bekreft-intervju">Book intervju</button>
+    </div>
+  </form>
+</dialog>
+
+<script type="module" src="./stilling.js"></script>
+</body>
+</html>
