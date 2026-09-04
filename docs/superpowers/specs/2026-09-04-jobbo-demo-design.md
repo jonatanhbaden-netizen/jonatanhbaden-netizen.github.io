@@ -64,7 +64,7 @@ create type application_status as enum ('sendt','sett','intervju','tilbud','avsl
 | `companies` | `id, name, org_nr, industry, kommune, logo_url, created_at` | Employer organisations |
 | `employer_users` | `id → auth.users, company_id, name, email` | One login belongs to one company |
 | `jobs` | `id, company_id, title, description, required_skills text[], nice_skills text[], education_min, experience_min int, experience_max int, kommune, norsk_min, engelsk_min, language_required bool, start_date date, shortlist_cap int default 10, guaranteed_interviews int default 10, status job_status, price_nok int default 5000, published_at, created_at` | Structured, not a free-text blob — the structure is what makes matching work |
-| `profiles` | `id → auth.users, first_name, last_name, email, phone, kommune, acceptable_kommuner text[], education jsonb, experience jsonb, skills text[], norsk language_level, engelsk language_level, available_from date, about text, updated_at` | **The profile is the CV.** `education`/`experience` are jsonb arrays of `{title, institution/company, from, to, description}`; `to = null` means current |
+| `profiles` | `id → auth.users, first_name, last_name, email, phone, kommune, acceptable_kommuner text[], highest_education education_level, education jsonb, experience jsonb, skills text[], norsk language_level, engelsk language_level, available_from date, about text, updated_at` | **The profile is the CV.** `education`/`experience` are jsonb arrays of `{title, institution/company, from, to, description}`; `to = null` means current. `highest_education` was added during implementation: the jsonb array has no level field, so the Utdanning component had nothing to compare against `jobs.education_min` |
 | `match_scores` | `job_id, profile_id, score int, reasons jsonb, computed_at` — PK `(job_id, profile_id)` | Recomputed by trigger on any job/profile change |
 | `applications` | `id, job_id, profile_id, status application_status, score_at_apply int, created_at, updated_at` — unique `(job_id, profile_id)` | Status changed only by employer |
 | `interviews` | `id, application_id, scheduled_at, outcome, notes` | Drives the guarantee dashboard |
@@ -103,6 +103,11 @@ A single SQL/plpgsql function. Deterministic. Weights sum to 100.
 `[{"key":"skills","ok":true,"text":"4 av 5 påkrevde ferdigheter"}, {"key":"sted","ok":true,"text":"Bor i Oslo"}, {"key":"sprak","ok":false,"text":"Mangler engelsk: god"}]`.
 
 **Kvalifisert** = `score ≥ 60`.
+
+**Two rules zero the score outright** (both add an `ekskludert` entry to `reasons`, so the exclusion is still explained):
+
+1. `language_required` is set and the language requirement is not met.
+2. The job lists required skills and the candidate matches **none** of them (added in migration `0006`). Without this a blank profile scores exactly 60 on an undemanding job — 0 + 0 + 15 utdanning + 15 erfaring + 15 sted + 10 språk + 5 oppstart — and counts as kvalifisert, which is the problem Jobbo exists to remove.
 
 ### Recompute triggers
 
@@ -235,3 +240,24 @@ Real payments · any LLM/AI · email/SMS notifications · employer self-signup (
 
 - Domain and static host — decided at deploy time (last build phase). Not blocking.
 - Project location: stays at `~/Jobbo` — deliberate exception to the `~/Prosjekter/` folder rule (user decision 2026-09-04).
+
+
+---
+
+## 9. Built — what changed against this spec
+
+Demo 1 is implemented and running. Supabase project `ndvefswyfriivcqntpxu`, `eu-west-1`.
+
+| Spec said | Built | Why |
+|---|---|---|
+| `profiles.education` jsonb only | Added `profiles.highest_education` | Utdanning needs a level to compare; jsonb had none |
+| `compute_match(job_id, profile_id)` | Added a `(jobs, profiles)` row overload; the uuid version wraps it | The row version is pure, testable without auth rows, and lets recompute run in one set-based pass |
+| `job_shortlist` capped at `shortlist_cap` | Exposes `rank` and `on_shortlist`; callers filter | The page needs the beyond-cap rows to render "Venteliste (n)" |
+| RLS unspecified for `companies` | All authenticated users may `select` | Candidate match cards show the company name |
+| Seed via `generate.mjs` + Admin API | Seed is SQL (`supabase/seed/seed.sql`) | The service-role key is not reachable through the Supabase MCP; SQL seeding needs no key and still goes through the production triggers |
+| pgTAP via `supabase test db` | Verified with SQL assertions over the MCP, plus a real-browser walk of the demo script | The spec allows either; the Supabase CLI is not installed locally |
+| Migrations `0001`–`0004` | Plus `0005` skills vocabulary, `0006` required-skills rule, `0007` function permissions | `0005` gives the wizard and CV builder a shared vocabulary; `0006` and `0007` are described above and below |
+
+`0007` revokes REST `EXECUTE` on the trigger and recompute functions, which Supabase's linter flagged as callable by any signed-in user. `current_company_id()` keeps `EXECUTE` for `authenticated` because RLS policy expressions run with the caller's privileges.
+
+**Still open before real users:** leaked-password protection is off in Supabase Auth (dashboard setting), and candidate data export/deletion is unbuilt — both listed in section 7.
