@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="nb">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Opprett arbeidsgiverkonto — Jobbo</title>
+<link rel="icon" href="/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Familjen+Grotesk:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap">
+<link rel="stylesheet" href="/shared/tokens.css">
+<link rel="stylesheet" href="/shared/base.css">
+<link rel="stylesheet" href="/shared/components.css">
+<style>
+  main { padding-block: var(--s-6) var(--s-8); display: grid; gap: var(--s-5); }
+  .hint { font-size: var(--t-sm); color: var(--ink-2); }
+  .hint a { color: var(--ink); }
+
+</style>
+</head>
+<body>
+<header class="topp">
+  <div class="innhold">
+    <a class="merke" href="/">Jobbo<span class="merke-punkt" aria-hidden="true"></span></a>
+    <nav><a href="/kandidat/index.html">For jobbsøkere</a></nav>
+  </div>
+</header>
+
+<main class="smal">
+  <div class="seksjon-hode">
+    <h1>Opprett arbeidsgiverkonto</h1>
+    <p class="tekst">Legg ut stillinger for 5 000 kr og få en rangert liste med kvalifiserte søkere.</p>
+  </div>
+
+  <form class="kort stabel" id="skjema">
+    <label>Firmanavn <input id="firma" autocomplete="organization" required></label>
+    <div class="to-kolonner">
+      <label>Organisasjonsnummer <input id="org-nr" inputmode="numeric" pattern="[0-9 ]{9,11}" placeholder="123 456 789"></label>
+      <label>Kommune
+        <select id="kommune">
+          <option>Oslo</option><option>Bærum</option><option>Asker</option>
+          <option>Lillestrøm</option><option>Lørenskog</option><option>Nordre Follo</option>
+          <option>Ullensaker</option><option>Rælingen</option><option>Nesodden</option><option>Drammen</option>
+        </select>
+      </label>
+    </div>
+    <label>Bransje
+      <select id="bransje">
+        <option value="butikk">Butikk og handel</option>
+        <option value="helse">Helse og omsorg</option>
+        <option value="it">IT og teknologi</option>
+        <option value="bygg">Bygg og anlegg</option>
+        <option value="logistikk">Transport og logistikk</option>
+        <option value="okonomi">Økonomi og administrasjon</option>
+        <option value="servering">Restaurant og servering</option>
+        <option value="skole">Skole og barnehage</option>
+        <option value="annet">Annet</option>
+      </select>
+    </label>
+    <label>Ditt navn <input id="navn" autocomplete="name" required></label>
+    <label>E-post <input type="email" id="epost" autocomplete="email" required></label>
+    <label>Passord
+      <input type="password" id="passord" autocomplete="new-password" minlength="8" required>
+      <span class="svak">Minst 8 tegn.</span>
+    </label>
+    <label class="rad" style="font-weight: 400">
+      <input type="checkbox" id="samtykke" required style="width: auto">
+      <span>Jeg har lest <a href="/konto/personvern.html" target="_blank">personvernerklæringen</a> og godtar at søkernes profiler bare brukes til å vurdere dem for våre stillinger.</span>
+    </label>
+    <p class="melding melding-feil" id="feil" role="alert"></p>
+    <p class="melding melding-ok" id="ok" role="status"></p>
+    <button class="knapp knapp-full" type="submit" id="send">Opprett konto</button>
+    <p class="hint">Har du konto? <a href="./index.html">Logg inn</a></p>
+  </form>
+</main>
+
+<script type="module" src="./registrer.js"></script>
+</body>
+</html>

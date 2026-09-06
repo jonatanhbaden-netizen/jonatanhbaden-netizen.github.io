@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Logg inn — Jobbo for arbeidsgivere</title>
+<title>Nytt passord — Jobbo</title>
 <link rel="icon" href="/favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -12,38 +12,34 @@
 <link rel="stylesheet" href="/shared/base.css">
 <link rel="stylesheet" href="/shared/components.css">
 <style>
-  .innlogg { padding-block: var(--s-8); display: grid; gap: var(--s-5); }
+  main { padding-block: var(--s-6) var(--s-8); display: grid; gap: var(--s-5); }
   .hint { font-size: var(--t-sm); color: var(--ink-2); }
-  .hint code { font-family: var(--font-ui); font-weight: 500; color: var(--ink); }
+  .hint a { color: var(--ink); }
+
 </style>
 </head>
 <body>
 <header class="topp">
   <div class="innhold">
     <a class="merke" href="/">Jobbo<span class="merke-punkt" aria-hidden="true"></span></a>
-    <nav><a href="/kandidat/index.html">For jobbsøkere</a></nav>
   </div>
 </header>
 
-<main class="smal innlogg">
+<main class="smal">
   <div class="seksjon-hode">
-    <h1>Logg inn</h1>
-    <p class="tekst">For arbeidsgivere som skal legge ut en stilling eller se søkerne sine.</p>
+    <h1>Lag nytt passord</h1>
   </div>
-
   <form class="kort stabel" id="skjema">
-    <label>E-post
-      <input type="email" id="epost" autocomplete="username" required>
-    </label>
-    <label>Passord
-      <input type="password" id="passord" autocomplete="current-password" required>
+    <label>Nytt passord
+      <input type="password" id="passord" autocomplete="new-password" minlength="8" required>
+      <span class="svak">Minst 8 tegn.</span>
     </label>
     <p class="melding melding-feil" id="feil" role="alert"></p>
-    <button class="knapp knapp-full" type="submit" id="send">Logg inn</button>
-    <p class="hint">Ny her? <a href="./registrer.html">Opprett konto</a> · <a href="/konto/glemt.html">Glemt passord?</a></p>
+    <p class="melding melding-ok" id="ok" role="status"></p>
+    <button class="knapp knapp-full" type="submit" id="send">Lagre passord</button>
   </form>
 </main>
 
-<script type="module" src="./login.js"></script>
+<script type="module" src="./nytt-passord.js"></script>
 </body>
 </html>
