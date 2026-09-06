@@ -35,7 +35,7 @@ async function tegn() {
     <span class="plasser-tekst"><strong>${brukt} av ${MAKS_AKTIVE_SOKNADER}</strong> aktive søknader</span>
     <a class="svak vokser" style="text-align: right" href="./soknader.html">Se søknadene dine</a>`;
 
-  await tegnFulle();
+  const antallFulle = await tegnFulle();
 
   const { data: matcher, error } = await supabase.from('my_matches').select('*');
   const liste = document.getElementById('liste');
@@ -46,14 +46,17 @@ async function tegn() {
   }
 
   if (!matcher.length) {
-    // Ingen søknader og ingen matcher: profilen er for tynn, ikke «alt er søkt på».
-    const tomProfil = brukt === 0;
+    // Three different reasons for an empty list, three different messages.
+    const tomProfil = brukt === 0 && antallFulle === 0;
+    const altFullt = brukt === 0 && antallFulle > 0;
     liste.innerHTML = `<div class="tom">
-      <h3>${tomProfil ? 'Fyll ut profilen for å få matcher' : 'Ingen nye matcher akkurat nå'}</h3>
+      <h3>${tomProfil ? 'Fyll ut profilen for å få matcher' : altFullt ? 'Stillingene du passer til er fulle akkurat nå' : 'Ingen nye matcher akkurat nå'}</h3>
       <p class="tekst">${tomProfil
         ? 'Vi trenger ferdighetene og erfaringen din for å finne jobber du faktisk er kvalifisert til.'
+        : altFullt
+        ? 'Hver stilling viser seg for et begrenset antall kandidater. Du får plass så snart noen faller fra, eller når fordelingen kjøres på nytt hver natt. Flere ferdigheter i profilen gir deg flere stillinger å konkurrere om.'
         : 'Du har søkt på de jobbene som passer deg best. Nye stillinger dukker opp her når de legges ut.'}</p>
-      ${tomProfil ? '<a class="knapp" href="./profil.html">Fyll ut profilen</a>' : ''}
+      ${tomProfil || altFullt ? '<a class="knapp" href="./profil.html">' + (tomProfil ? 'Fyll ut profilen' : 'Utvid profilen') + '</a>' : ''}
     </div>`;
     return;
   }
@@ -110,10 +113,13 @@ async function tegnFulle() {
   const seksjon = document.getElementById('fulle');
   const { data: fulle } = await supabase.from('my_missed').select('*');
   seksjon.hidden = !fulle?.length;
-  if (!fulle?.length) return;
+  if (!fulle?.length) return 0;
   document.getElementById('fulle-liste').innerHTML = fulle.map((f) => `
     <li class="rad-mellom">
       <span><strong>${esc(f.title)}</strong> <span class="svak">· ${esc(f.company_name)}</span></span>
-      <span class="svak">Laveste på lista ${f.cutoff_score} · din ${f.score}</span>
+      <span class="svak">${f.cutoff_score > 0
+        ? `Laveste på lista ${f.cutoff_score} · din ${f.score}`
+        : `Har fått alle søkerne den kan ta · din ${f.score}`}</span>
     </li>`).join('');
+  return fulle.length;
 }
