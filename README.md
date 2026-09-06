@@ -13,6 +13,7 @@ Oslo employers. Matching is deterministic and rule-based; there is no LLM.
 
 - Spec: `docs/superpowers/specs/2026-09-04-jobbo-demo-design.md`
 - Backend plan: `docs/superpowers/plans/2026-09-04-jobbo-backend.md`
+- Drift (nøkler, Stripe, Resend, NAV, dashboard-innstillinger): `docs/DRIFT.md`
 
 ## Running it
 

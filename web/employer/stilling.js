@@ -180,8 +180,14 @@ function lokalIso(d) {
   return `${d.getFullYear()}-${p(d.getMonth() + 1)}-${p(d.getDate())}T${p(d.getHours())}:${p(d.getMinutes())}`;
 }
 
-dialog.addEventListener('close', async () => {
-  if (dialog.returnValue !== 'book' || !aktivSoknad) return;
+// The form's submit fires synchronously on the button; the dialog's close
+// event does not fire reliably everywhere.
+dialog.querySelector('form').addEventListener('submit', (e) => {
+  if (e.submitter?.value === 'book') sendForslag();
+});
+
+async function sendForslag() {
+  if (!aktivSoknad) return;
   const tider = [1, 2, 3]
     .map((n) => document.getElementById(`tid-${n}`).value)
     .filter(Boolean)
@@ -200,4 +206,4 @@ dialog.addEventListener('close', async () => {
 
   aktivSoknad = null;
   await tegn();
-});
+}
