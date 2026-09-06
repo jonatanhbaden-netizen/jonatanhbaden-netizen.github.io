@@ -19,6 +19,29 @@ tegnTopp({
 });
 document.getElementById('hvem').textContent = res.session.user.email;
 
+if (!kandidat) {
+  const skjema = document.getElementById('firma-skjema');
+  const { data: firma } = await supabase.from('companies')
+    .select('id, name, org_nr, kommune').eq('id', res.arbeidsgiver.company_id).maybeSingle();
+  if (firma) {
+    skjema.hidden = false;
+    document.getElementById('firma-navn').value = firma.name;
+    document.getElementById('firma-orgnr').value = firma.org_nr ?? '';
+    document.getElementById('firma-kommune').value = firma.kommune;
+    skjema.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      feil.textContent = ''; ok.textContent = '';
+      const { error } = await supabase.from('companies').update({
+        name: document.getElementById('firma-navn').value.trim(),
+        org_nr: document.getElementById('firma-orgnr').value.replace(/\s/g, '') || null,
+        kommune: document.getElementById('firma-kommune').value,
+      }).eq('id', firma.id);
+      if (error) { feil.textContent = `Klarte ikke å lagre: ${error.message}`; return; }
+      ok.textContent = 'Firmaet er oppdatert.';
+    });
+  }
+}
+
 const { data: varsler } = await supabase.from('notifications')
   .select('subject, body, path, status, created_at').order('created_at', { ascending: false }).limit(30);
 const VARSEL_STATUS = { venter: 'venter på e-post', sendt: 'sendt', feilet: 'feilet' };

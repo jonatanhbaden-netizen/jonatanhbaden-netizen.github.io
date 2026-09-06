@@ -5,6 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Konto — Jobbo</title>
 <link rel="icon" href="/favicon.svg">
+<link rel="manifest" href="/manifest.webmanifest">
+<link rel="apple-touch-icon" href="/ikoner/apple-touch-icon.png">
+<meta name="theme-color" content="#16233A">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Familjen+Grotesk:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap">
@@ -33,6 +36,22 @@
 
   <p class="melding melding-feil" id="feil" role="alert"></p>
   <p class="melding melding-ok" id="ok" role="status"></p>
+
+  <form class="kort stabel" id="firma-skjema" hidden>
+    <h2 style="font-size: var(--t-md)">Firmaet</h2>
+    <label>Firmanavn <input id="firma-navn" required></label>
+    <div class="to-kolonner">
+      <label>Organisasjonsnummer <input id="firma-orgnr" inputmode="numeric"></label>
+      <label>Kommune
+        <select id="firma-kommune">
+          <option>Oslo</option><option>Bærum</option><option>Asker</option>
+          <option>Lillestrøm</option><option>Lørenskog</option><option>Nordre Follo</option>
+          <option>Ullensaker</option><option>Rælingen</option><option>Nesodden</option><option>Drammen</option>
+        </select>
+      </label>
+    </div>
+    <button class="knapp knapp-2" type="submit">Lagre firmaet</button>
+  </form>
 
   <form class="kort stabel" id="passord-skjema">
     <h2 style="font-size: var(--t-md)">Endre passord</h2>
@@ -63,5 +82,7 @@
 </main>
 
 <script type="module" src="./konto.js"></script>
+<script type="module" src="/shared/components/bunn.js"></script>
+<script type="module" src="/shared/pwa.js"></script>
 </body>
 </html>

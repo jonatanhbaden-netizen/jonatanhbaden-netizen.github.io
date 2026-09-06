@@ -4,7 +4,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Jobbo</title>
+<meta name="description" content="Jobbo matcher jobbsøkere i Oslo mot stillinger de faktisk er kvalifisert for. Arbeidsgivere får ti rangerte søkere, ikke fire hundre.">
 <link rel="icon" href="/favicon.svg">
+<link rel="manifest" href="/manifest.webmanifest">
+<link rel="apple-touch-icon" href="/ikoner/apple-touch-icon.png">
+<meta name="theme-color" content="#16233A">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Familjen+Grotesk:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap">
@@ -25,20 +29,24 @@
     letter-spacing: -0.04em; font-variant-numeric: tabular-nums;
   }
   .tall-rad p { margin-top: var(--s-2); color: var(--ink-2); font-size: var(--t-sm); max-width: 26ch; }
+  .kilde { margin-top: var(--s-3); font-size: var(--t-xs); color: var(--ink-3); }
+  .kilde a { color: inherit; }
   .doerer { display: grid; gap: var(--s-4); margin-top: var(--s-7); }
   @media (min-width: 48rem) { .doerer { grid-template-columns: 1fr 1fr; } }
   .doer { display: grid; gap: var(--s-3); align-content: start; text-decoration: none; }
   .doer:hover { border-color: var(--line-2); }
-  .demo-boks { margin-top: var(--s-7); font-size: var(--t-sm); }
-  .demo-boks code { font-family: var(--font-ui); font-weight: 500; }
-  .demo-boks li { margin-bottom: var(--s-1); }
+  .steg { display: grid; gap: var(--s-4); margin-top: var(--s-7); }
+  @media (min-width: 48rem) { .steg { grid-template-columns: repeat(3, 1fr); } }
+  .steg-nr { font-size: var(--t-sm); font-weight: 600; color: var(--ja); }
+  .steg h3 { margin-top: var(--s-1); }
+  .steg p { margin-top: var(--s-2); }
 </style>
 </head>
 <body>
 <header class="topp">
   <div class="innhold">
     <a class="merke" href="/">Jobbo<span class="merke-punkt" aria-hidden="true"></span></a>
-    <nav><a href="/employer/index.html">For arbeidsgivere</a><a href="/kandidat/index.html">For jobbsøkere</a></nav>
+    <nav><a href="/stillinger.html">Stillinger</a><a href="/employer/index.html">For arbeidsgivere</a><a href="/kandidat/index.html">For jobbsøkere</a></nav>
   </div>
 </header>
 
@@ -48,25 +56,25 @@
     <p class="hero-brod tekst">
       Jobbo matcher jobbsøkere mot stillinger de faktisk er kvalifisert for, og lar hver
       kandidat søke på maks fem om gangen. Arbeidsgiveren får en rangert liste med de ti
-      beste — og kan garantere intervju til alle sammen.
+      beste — og garanterer intervju til alle sammen.
     </p>
 
     <div class="tall-rad">
       <div>
-        <div class="stort-tall">4 900</div>
-        <p>ledige stillinger i Oslo</p>
+        <div class="stort-tall">5 955</div>
+        <p>nye ledige stillinger i Oslo i august</p>
       </div>
       <div>
-        <div class="stort-tall">12 000</div>
-        <p>registrerte jobbsøkere i samme by</p>
+        <div class="stort-tall">11 649</div>
+        <p>helt ledige i Oslo samme måned — 2,8 % av arbeidsstyrken</p>
       </div>
       <div>
-        <div class="stort-tall">400</div>
-        <p>søknader på én enkelt stilling, der to får svar</p>
+        <div class="stort-tall">5</div>
+        <p>søknader per jobbsøker om gangen hos Jobbo</p>
       </div>
       <div>
         <div class="stort-tall">10</div>
-        <p>garanterte intervjuer per stilling hos Jobbo</p>
+        <p>garanterte intervjuer per stilling</p>
         <div class="plasser" style="margin-top: var(--s-3)" aria-hidden="true">
           <span class="plass plass-fylt"></span><span class="plass plass-fylt"></span>
           <span class="plass plass-fylt"></span><span class="plass plass-fylt"></span>
@@ -76,30 +84,41 @@
         </div>
       </div>
     </div>
+    <p class="kilde">Kilde: <a href="https://www.nav.no/no/lokalt/oslo/statistikk-og-analyse/arbeidsmarkedet" rel="noopener">NAV, Hovedtall om arbeidsmarkedet, Oslo, august 2026</a>.</p>
 
     <div class="doerer">
       <a class="kort doer" href="/employer/index.html">
         <h2>Jeg skal ansette</h2>
-        <p class="tekst">Legg ut en stilling for 5 000 kr og få en rangert liste med kvalifiserte søkere. Finn tar 10 000.</p>
+        <p class="tekst">Legg ut en stilling for 5 000 kr og få en rangert liste med kvalifiserte søkere, hver med begrunnelse. Ingen bunke å lese.</p>
         <span class="knapp" style="justify-self: start">Kom i gang som arbeidsgiver</span>
       </a>
       <a class="kort doer" href="/kandidat/index.html">
         <h2>Jeg søker jobb</h2>
-        <p class="tekst">Fyll ut profilen din én gang. Få tre til fem jobber du faktisk passer til, med begrunnelse.</p>
+        <p class="tekst">Fyll ut profilen din én gang. Få inntil fem jobber du faktisk passer til, med begrunnelse — og et intervju du kan regne med.</p>
         <span class="knapp knapp-2" style="justify-self: start">Kom i gang som jobbsøker</span>
       </a>
     </div>
 
-    <div class="kort demo-boks">
-      <h3>Prøv det</h3>
-      <p class="dempet" style="margin-top: var(--s-2)">Opprett din egen konto på ett av valgene over — den virker med en gang, uten e-postbekreftelse. Eller bruk demokontoene, passord <code>jobbo-demo</code>:</p>
-      <ul style="margin: var(--s-3) 0 0; padding-left: 1.1rem">
-        <li><code>arbeidsgiver1@jobbo.demo</code> — Grünerløkka Matsenter, tre publiserte stillinger</li>
-        <li><code>arbeidsgiver2@jobbo.demo</code> — Storo Sport, én stilling som utkast</li>
-        <li><code>kandidat@jobbo.demo</code> — kandidat som alt har søkt på fem stillinger</li>
-      </ul>
+    <div class="steg">
+      <div class="kort">
+        <span class="steg-nr">1</span>
+        <h3>Én profil, ingen søknadsbrev</h3>
+        <p class="tekst">Profilen din er CV-en. Ferdigheter, erfaring, språk, sted. Det er alt matchingen trenger.</p>
+      </div>
+      <div class="kort">
+        <span class="steg-nr">2</span>
+        <h3>Fem matcher, med begrunnelse</h3>
+        <p class="tekst">Du ser hvorfor du passer — og hvorfor ikke. Ingen stilling vises til flere enn tjue kandidater.</p>
+      </div>
+      <div class="kort">
+        <span class="steg-nr">3</span>
+        <h3>Søk, og bli sett</h3>
+        <p class="tekst">Arbeidsgiveren ser ti rangerte søkere og har forpliktet seg til å intervjue dem. Ikke fire hundre. Ti.</p>
+      </div>
     </div>
   </section>
 </main>
+<script type="module" src="/shared/components/bunn.js"></script>
+<script type="module" src="/shared/pwa.js"></script>
 </body>
 </html>

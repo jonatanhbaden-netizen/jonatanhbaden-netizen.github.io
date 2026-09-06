@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Søknadene dine — Jobbo</title>
+<title>Ledige stillinger — Jobbo</title>
 <link rel="icon" href="/favicon.svg">
 <link rel="manifest" href="/manifest.webmanifest">
 <link rel="apple-touch-icon" href="/ikoner/apple-touch-icon.png">
@@ -15,33 +15,32 @@
 <link rel="stylesheet" href="/shared/base.css">
 <link rel="stylesheet" href="/shared/components.css">
 <style>
-  main { padding-block: var(--s-5) var(--s-8); display: grid; gap: var(--s-5); }
-  .kvote { display: flex; align-items: center; gap: var(--s-3); flex-wrap: wrap;
-           padding: var(--s-3) var(--s-4); border: var(--kant); border-radius: var(--radius);
-           background: var(--surface); }
-  .soknad { display: grid; gap: var(--s-3); }
-  .lopet { display: flex; gap: var(--s-1); align-items: center; font-size: var(--t-xs); flex-wrap: wrap; }
-  .lopet-steg { color: var(--ink-3); }
-  .lopet-steg[data-na='ja'] { color: var(--ink); font-weight: 600; }
-  .lopet-steg[data-passert='ja'] { color: var(--ja); }
-  .lopet-pil { color: var(--line-2); }
+  main { padding-block: var(--s-6) var(--s-8); display: grid; gap: var(--s-5); }
+  .hint { font-size: var(--t-sm); color: var(--ink-2); }
+  .hint a { color: var(--ink); }
+  .liste { display: grid; gap: var(--s-3); }
+  .stilling { display: grid; gap: var(--s-1); }
+  .stilling h2 { font-size: var(--t-md); }
 </style>
 </head>
 <body>
-<header class="topp"><div class="innhold"></div></header>
-
-<main class="smal">
-  <div class="seksjon-hode">
-    <h1>Søknadene dine</h1>
-    <p class="tekst">Du kan ha fem aktive om gangen. Når en avsluttes, frigjøres plassen.</p>
+<header class="topp">
+  <div class="innhold">
+    <a class="merke" href="/">Jobbo<span class="merke-punkt" aria-hidden="true"></span></a>
+    <nav><a href="/employer/index.html">For arbeidsgivere</a><a href="/kandidat/index.html">For jobbsøkere</a></nav>
   </div>
+</header>
 
-  <div class="kvote" id="kvote"></div>
+<main class="innhold">
+  <div class="seksjon-hode">
+    <h1>Ledige stillinger</h1>
+    <p class="tekst">Stillingene som er ute på Jobbo akkurat nå. Du søker ikke herfra — du blir matchet. <a href="/kandidat/registrer.html">Opprett profil</a>, så finner vi de du passer til.</p>
+  </div>
   <p class="melding melding-feil" id="feil" role="alert"></p>
-  <div class="stabel" id="liste"></div>
+  <div class="liste" id="liste"></div>
 </main>
 
-<script type="module" src="./soknader.js"></script>
+<script type="module" src="./stillinger.js"></script>
 <script type="module" src="/shared/components/bunn.js"></script>
 <script type="module" src="/shared/pwa.js"></script>
 </body>

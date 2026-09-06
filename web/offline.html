@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Kandidat — Jobbo</title>
+<title>Frakoblet — Jobbo</title>
 <link rel="icon" href="/favicon.svg">
 <link rel="manifest" href="/manifest.webmanifest">
 <link rel="apple-touch-icon" href="/ikoner/apple-touch-icon.png">
@@ -14,28 +14,22 @@
 <link rel="stylesheet" href="/shared/tokens.css">
 <link rel="stylesheet" href="/shared/base.css">
 <link rel="stylesheet" href="/shared/components.css">
-<link rel="stylesheet" href="/shared/cv.css">
 <style>
-  .tilbake { font-size: var(--t-sm); color: var(--ink-2); text-decoration: none; }
-  .kandidatlayout { display: grid; gap: var(--s-6); align-items: start; }
-  @media (min-width: 60rem) { .kandidatlayout { grid-template-columns: 1fr 20rem; } }
-  .sidepanel { position: sticky; top: 5rem; display: grid; gap: var(--s-4); }
+  main { padding-block: var(--s-6) var(--s-8); display: grid; gap: var(--s-5); }
+  .hint { font-size: var(--t-sm); color: var(--ink-2); }
+  .hint a { color: var(--ink); }
+
 </style>
 </head>
 <body>
-<header class="topp"><div class="innhold"></div></header>
-
-<main class="innhold seksjon">
-  <a class="tilbake" id="tilbake" href="./dashboard.html">Tilbake til søkerne</a>
-  <p class="melding melding-feil" id="feil" role="alert"></p>
-
-  <div class="kandidatlayout" style="margin-top: var(--s-4)">
-    <article class="kort cv" id="cv"></article>
-    <aside class="sidepanel" id="panel"></aside>
+<header class="topp"><div class="innhold"><a class="merke" href="/">Jobbo<span class="merke-punkt" aria-hidden="true"></span></a></div></header>
+<main class="smal">
+  <div class="tom">
+    <h1 style="font-size: var(--t-lg)">Du er frakoblet</h1>
+    <p class="tekst">Jobbo trenger nett for å hente matchene dine. Prøv igjen når du er tilkoblet.</p>
+    <a class="knapp" href="/">Prøv igjen</a>
   </div>
 </main>
-
-<script type="module" src="./kandidat.js"></script>
 <script type="module" src="/shared/components/bunn.js"></script>
 <script type="module" src="/shared/pwa.js"></script>
 </body>

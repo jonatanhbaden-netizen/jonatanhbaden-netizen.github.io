@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="nb">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Om Jobbo</title>
+<link rel="icon" href="/favicon.svg">
+<link rel="manifest" href="/manifest.webmanifest">
+<link rel="apple-touch-icon" href="/ikoner/apple-touch-icon.png">
+<meta name="theme-color" content="#16233A">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Familjen+Grotesk:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap">
+<link rel="stylesheet" href="/shared/tokens.css">
+<link rel="stylesheet" href="/shared/base.css">
+<link rel="stylesheet" href="/shared/components.css">
+<style>
+  main { padding-block: var(--s-6) var(--s-8); display: grid; gap: var(--s-5); }
+  .hint { font-size: var(--t-sm); color: var(--ink-2); }
+  .hint a { color: var(--ink); }
+  .om h2 { font-size: var(--t-md); margin-top: var(--s-5); }
+  .om p, .om li { font-family: var(--font-tekst); line-height: var(--lh-tekst); color: var(--ink-2); }
+  .om ul { padding-left: 1.2rem; }
+</style>
+</head>
+<body>
+<header class="topp">
+  <div class="innhold">
+    <a class="merke" href="/">Jobbo<span class="merke-punkt" aria-hidden="true"></span></a>
+    <nav><a href="/employer/index.html">For arbeidsgivere</a><a href="/kandidat/index.html">For jobbsøkere</a></nav>
+  </div>
+</header>
+
+<main class="smal om">
+  <div class="seksjon-hode">
+    <h1>Om Jobbo</h1>
+    <p class="tekst">Et jobbmarked som rasjonerer søknader, så begge sider blir sett.</p>
+  </div>
+
+  <h2>Problemet</h2>
+  <p>I august 2026 ble det lyst ut 5 955 stillinger i Oslo, og 11 649 personer var helt ledige. Tallene sier at det finnes jobb. Likevel får én populær stilling ofte flere hundre søknader, og de fleste hører aldri noe. Problemet er ikke mangel på jobber. Det er at søknadene havner på de samme få stillingene.</p>
+
+  <h2>Mekanismen</h2>
+  <p>Jobbo gjør to ting som andre jobbportaler ikke gjør:</p>
+  <ul>
+    <li><strong>Hver jobbsøker får inntil fem matcher om gangen</strong>, valgt ut fra hva profilen faktisk kvalifiserer til. Du kan bare søke på dem.</li>
+    <li><strong>Ingen stilling vises til flere enn tjue kandidater.</strong> Fordelingen regnes ut for hele markedet under ett hver natt, med samme metode som brukes til å fordele leger på sykehus i USA og elever på skoler i Danmark: en stabil fordeling der ingen kandidat og stilling begge ville foretrukket hverandre framfor det de fikk.</li>
+  </ul>
+  <p>Resultatet er at en arbeidsgiver får rundt ti søkere som faktisk er kvalifisert, og kan love å intervjue dem alle. Og en jobbsøker som søker, kan regne med et intervju.</p>
+
+  <h2>Matchingen er regelbasert, ikke KI</h2>
+  <p>Poengsummen (0–100) settes av sju vektede krav: påkrevde ferdigheter, ønskede ferdigheter, utdanning, erfaring, sted, språk og oppstart. Du ser alltid begrunnelsen. Algoritmen avslår aldri noen; bare en arbeidsgiver kan avgjøre en søknad. Får du ikke plass på en stilling fordi lista er full, ser du hvilken poengsum som var nødvendig.</p>
+
+  <h2>Pris</h2>
+  <p>Jobbsøkere betaler ingenting. Arbeidsgivere betaler 5 000 kr per stilling, og forplikter seg til å intervjue inntil ti kandidater fra shortlisten. Se <a href="/konto/vilkar.html">vilkårene</a>.</p>
+
+  <h2>Data</h2>
+  <p>Ingen arbeidsgiver kan bla i jobbsøkere. En arbeidsgiver ser CV-en din først når du selv har søkt hos dem. Alt du har lagt inn kan lastes ned eller slettes når du vil. Se <a href="/konto/personvern.html">personvernerklæringen</a>.</p>
+</main>
+<script type="module" src="/shared/components/bunn.js"></script>
+<script type="module" src="/shared/pwa.js"></script>
+</body>
+</html>
