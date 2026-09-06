@@ -35,6 +35,8 @@ async function tegn() {
     <span class="plasser-tekst"><strong>${brukt} av ${MAKS_AKTIVE_SOKNADER}</strong> aktive søknader</span>
     <a class="svak vokser" style="text-align: right" href="./soknader.html">Se søknadene dine</a>`;
 
+  await tegnFulle();
+
   const { data: matcher, error } = await supabase.from('my_matches').select('*');
   const liste = document.getElementById('liste');
 
@@ -96,4 +98,17 @@ async function tegn() {
       await tegn();
     });
   });
+}
+
+// Forklaringen til den som ikke kom med: terskelen stillingen endte på.
+async function tegnFulle() {
+  const seksjon = document.getElementById('fulle');
+  const { data: fulle } = await supabase.from('my_missed').select('*');
+  seksjon.hidden = !fulle?.length;
+  if (!fulle?.length) return;
+  document.getElementById('fulle-liste').innerHTML = fulle.map((f) => `
+    <li class="rad-mellom">
+      <span><strong>${esc(f.title)}</strong> <span class="svak">· ${esc(f.company_name)}</span></span>
+      <span class="svak">Laveste på lista ${f.cutoff_score} · din ${f.score}</span>
+    </li>`).join('');
 }

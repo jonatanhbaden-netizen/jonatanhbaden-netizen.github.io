@@ -21,6 +21,9 @@
   .matchkort h2 { font-size: var(--t-md); }
   .firma { color: var(--ink-2); font-size: var(--t-sm); }
   .derfor { font-size: var(--t-sm); font-weight: 600; color: var(--ink-2); }
+  .fulle h2 { font-size: var(--t-md); }
+  .fulle-liste { list-style: none; padding: 0; margin: 0; display: grid; gap: var(--s-2); }
+  .fulle-liste li { padding: var(--s-3) var(--s-4); border: var(--kant); border-radius: var(--radius); background: var(--surface); }
 </style>
 </head>
 <body>
@@ -37,6 +40,12 @@
   <p class="melding melding-ok" id="ok" role="status"></p>
 
   <div class="matchliste" id="liste"></div>
+
+  <section class="stabel-2 fulle" id="fulle" hidden>
+    <h2>Stillinger du er kvalifisert for, men som er fulle</h2>
+    <p class="tekst">Lista der er fylt av kandidater med høyere score. Hever du scoren din, kan du komme med i neste fordeling.</p>
+    <ul class="fulle-liste" id="fulle-liste"></ul>
+  </section>
 </main>
 
 <script type="module" src="./matcher.js"></script>
