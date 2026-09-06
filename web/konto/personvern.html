@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="nb">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Personvern — Jobbo</title>
+<link rel="icon" href="/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Familjen+Grotesk:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap">
+<link rel="stylesheet" href="/shared/tokens.css">
+<link rel="stylesheet" href="/shared/base.css">
+<link rel="stylesheet" href="/shared/components.css">
+<style>
+  main { padding-block: var(--s-6) var(--s-8); display: grid; gap: var(--s-5); }
+  .hint { font-size: var(--t-sm); color: var(--ink-2); }
+  .hint a { color: var(--ink); }
+  .personvern h2 { font-size: var(--t-md); margin-top: var(--s-5); }
+  .personvern p, .personvern li { font-family: var(--font-tekst); line-height: var(--lh-tekst); color: var(--ink-2); }
+  .personvern ul { padding-left: 1.2rem; }
+</style>
+</head>
+<body>
+<header class="topp">
+  <div class="innhold">
+    <a class="merke" href="/">Jobbo<span class="merke-punkt" aria-hidden="true"></span></a>
+  </div>
+</header>
+
+<main class="smal personvern">
+  <div class="seksjon-hode">
+    <h1>Personvernerklæring</h1>
+    <p class="dempet">Sist oppdatert 6. september 2026</p>
+  </div>
+
+  <h2>Hvem er ansvarlig</h2>
+  <p>Jobbo er behandlingsansvarlig for personopplysningene som samles inn på jobbo.no. Spørsmål om personvern sendes til personvern@jobbo.no.</p>
+
+  <h2>Hva vi samler inn</h2>
+  <ul>
+    <li><strong>Jobbsøkere:</strong> navn, e-post, telefon, bosted, utdanning, arbeidserfaring, ferdigheter, språknivå og tilgjengelighet — det du selv legger inn i profilen. I tillegg søknadene dine, intervjuavtaler og matchene vi har beregnet for deg.</li>
+    <li><strong>Arbeidsgivere:</strong> firmanavn, organisasjonsnummer, kontaktperson og e-post, samt stillingene dere legger ut og betalingene for dem.</li>
+    <li><strong>Teknisk:</strong> et innloggingstoken i nettleseren din. Vi bruker ingen sporingsverktøy og ingen tredjeparts informasjonskapsler.</li>
+  </ul>
+
+  <h2>Hva vi bruker det til</h2>
+  <p>Profilen din brukes til én ting: å beregne hvilke stillinger du er kvalifisert for, og vise deg inntil fem av dem. Grunnlaget er avtalen du inngår når du oppretter konto (personvernforordningen artikkel 6 nr. 1 bokstav b) og samtykket du gir ved registrering.</p>
+
+  <h2>Automatisert matching — og hva den ikke gjør</h2>
+  <p>Jobbo bruker en regelbasert algoritme uten kunstig intelligens. Den sammenligner kravene i en stilling med profilen din og gir en poengsum med begrunnelse. Du ser alltid begrunnelsen. Algoritmen tar ingen avgjørelse om deg: den gir aldri avslag, og bare en arbeidsgiver kan avgjøre en søknad. Får du ikke plass på en stilling fordi lista er full, ser du hvilken poengsum som var nødvendig. Du kan når som helst kreve at et menneske vurderer en match ved å kontakte oss (artikkel 22).</p>
+
+  <h2>Hvem ser dataene dine</h2>
+  <p>Ingen arbeidsgiver kan bla i jobbsøkere. En arbeidsgiver ser CV-en din først når du selv har søkt på en av deres stillinger, og bare den. Vi selger ikke og deler ikke opplysninger med andre.</p>
+
+  <h2>Hvor de lagres</h2>
+  <p>Databasen driftes av Supabase i EU (Irland). E-post sendes gjennom Resend. Betalinger håndteres av Stripe; Jobbo lagrer aldri kortnummer.</p>
+
+  <h2>Hvor lenge</h2>
+  <p>Så lenge kontoen din finnes. Sletter du kontoen, slettes profil, søknader, matcher og varsler umiddelbart. Betalingsbilag for arbeidsgivere oppbevares i fem år etter bokføringsloven.</p>
+
+  <h2>Rettighetene dine</h2>
+  <ul>
+    <li><strong>Innsyn og dataportabilitet:</strong> last ned alt vi har om deg fra <a href="/konto/index.html">kontosiden</a>.</li>
+    <li><strong>Retting:</strong> endre profilen når som helst.</li>
+    <li><strong>Sletting:</strong> slett kontoen fra kontosiden. Ingen ventetid, ingen spørsmål.</li>
+    <li><strong>Klage:</strong> du kan klage til Datatilsynet, datatilsynet.no.</li>
+  </ul>
+</main>
+</body>
+</html>

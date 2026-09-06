@@ -36,13 +36,15 @@ if (res) {
     </div>`;
   } else {
     liste.innerHTML = stillinger.map((s) => {
-      const utkast = s.status !== 'published';
+      const utkast = s.status === 'draft';
+      const lukket = s.status === 'closed';
       const maal = `${utkast ? './betaling.html' : './stilling.html'}?id=${s.job_id}`;
       return `<a class="kort stillingskort" href="${maal}">
         <div class="rad-mellom">
           <h3>${esc(s.title)}</h3>
           ${utkast
             ? '<span class="utkast-merke">Utkast — ikke publisert</span>'
+            : lukket ? '<span class="utkast-merke">Lukket</span>'
             : `<span class="svak">Publisert ${esc(siden(s.published_at))}</span>`}
         </div>
         ${utkast
@@ -66,7 +68,9 @@ if (res) {
                 ${tegnPlasser(Number(s.booked_interviews), Number(s.guaranteed_interviews), { sma: true })}
                 <span class="plasser-tekst">${tall(s.booked_interviews)} av ${tall(s.guaranteed_interviews)} garanterte intervjuer booket</span>
               </div>
-            </div>`}
+            </div>
+            ${!lukket && Number(s.qualified_count) < 3
+              ? `<p class="svak" style="color: var(--varsel)">Bare ${tall(s.qualified_count)} kvalifiserte i basen — vurder å senke kravene.</p>` : ''}`}
       </a>`;
     }).join('');
   }

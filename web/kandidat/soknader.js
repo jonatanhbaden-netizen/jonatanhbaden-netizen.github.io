@@ -5,11 +5,17 @@ import { tegnScore, tegnPlasser } from '/shared/components/grunner.js';
 import { MAKS_AKTIVE_SOKNADER } from '/shared/config.js';
 import { esc, siden, STATUS_TEKST } from '/shared/format.js';
 
+const TID = new Intl.DateTimeFormat('nb-NO', { weekday: 'long', day: '2-digit', month: 'long', hour: '2-digit', minute: '2-digit' });
+
 const AKTIVE = ['sendt', 'sett', 'intervju'];
 const LOPET = ['sendt', 'sett', 'intervju', 'tilbud'];
 
+const feil = document.getElementById('feil');
+
 const res = await krevRolle('kandidat', './index.html');
-if (res) {
+if (res) await tegn();
+
+async function tegn() {
   tegnTopp({
     vert: './matcher.html',
     lenker: [
@@ -24,6 +30,10 @@ if (res) {
     .from('applications')
     .select('id, status, score_at_apply, created_at, jobs(title, kommune, companies(name))')
     .order('created_at', { ascending: false });
+
+  const { data: iv } = await supabase.from('interviews')
+    .select('id, application_id, proposed_times, scheduled_at, status, location');
+  const intervjuer = new Map((iv ?? []).filter((i) => i.status !== 'avlyst').map((i) => [i.application_id, i]));
 
   const liste = document.getElementById('liste');
   const brukt = (soknader ?? []).filter((s) => AKTIVE.includes(s.status)).length;
@@ -54,8 +64,36 @@ if (res) {
         ${s.status === 'avslag'
           ? '<p><span class="status status-avslag">Avslag</span></p>'
           : `<div class="lopet">${lopet(s.status)}</div>`}
+        ${intervju(intervjuer.get(s.id))}
       </article>`).join('');
   }
+
+  document.querySelectorAll('[data-bekreft]').forEach((k) => {
+    k.addEventListener('click', async () => {
+      feil.textContent = '';
+      k.disabled = true;
+      const { error: bFeil } = await supabase.rpc('confirm_interview', { p_id: k.dataset.bekreft, p_time: k.dataset.tid });
+      if (bFeil) { feil.textContent = bFeil.message.replace(/^.*?:\s*/, ''); k.disabled = false; return; }
+      await tegn();
+    });
+  });
+}
+
+function intervju(i) {
+  if (!i) return '';
+  if (i.status === 'bekreftet') {
+    return `<div class="felt stabel-2">
+      <strong>Intervju ${esc(TID.format(new Date(i.scheduled_at)))}</strong>
+      ${i.location ? `<span class="svak">${esc(i.location)}</span>` : ''}
+    </div>`;
+  }
+  return `<div class="felt stabel-2">
+    <strong>Velg tidspunkt for intervju</strong>
+    ${i.location ? `<span class="svak">${esc(i.location)}</span>` : ''}
+    <div class="rad">
+      ${i.proposed_times.map((t) => `<button class="knapp knapp-2 knapp-liten" type="button" data-bekreft="${i.id}" data-tid="${esc(t)}">${esc(TID.format(new Date(t)))}</button>`).join('')}
+    </div>
+  </div>`;
 }
 
 function lopet(status) {

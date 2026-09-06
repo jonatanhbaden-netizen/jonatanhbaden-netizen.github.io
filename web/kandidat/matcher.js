@@ -74,7 +74,7 @@ async function tegn() {
       </div>
       <div class="rad-mellom">
         <span class="svak">${m.start_date ? `Oppstart ${esc(dato(m.start_date))}` : 'Oppstart etter avtale'}</span>
-        <button class="knapp" data-sok="${m.job_id}" data-tittel="${esc(m.title)}">Søk på jobben</button>
+        <button class="knapp" data-sok="${m.job_id}" data-tittel="${esc(m.title)}" ${m.external_url ? `data-ekstern="${esc(m.external_url)}"` : ''}>${m.external_url ? 'Søk hos Arbeidsplassen' : 'Søk på jobben'}</button>
       </div>
     </article>`).join('');
 
@@ -95,7 +95,11 @@ async function tegn() {
         k.textContent = 'Søk på jobben';
         return;
       }
-      ok.textContent = `Søknaden på ${k.dataset.tittel} er sendt.`;
+      // Imported jobs take the application at the source; we only count the slot.
+      if (k.dataset.ekstern) window.open(k.dataset.ekstern, '_blank', 'noopener');
+      ok.textContent = k.dataset.ekstern
+        ? `Plassen er registrert. Fullfør søknaden på ${k.dataset.tittel} hos Arbeidsplassen i fanen som åpnet.`
+        : `Søknaden på ${k.dataset.tittel} er sendt.`;
       await tegn();
     });
   });

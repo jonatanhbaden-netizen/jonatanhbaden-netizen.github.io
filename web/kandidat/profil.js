@@ -3,6 +3,7 @@ import { krevRolle } from '/shared/auth.js';
 import { tegnTopp } from '/shared/components/topp.js';
 import { tegnCv } from '/shared/cv.js';
 import { esc } from '/shared/format.js';
+import { hentSynonymer, filtrer } from '/shared/ferdigheter.js';
 
 const feil = document.getElementById('feil');
 const ok = document.getElementById('ok');
@@ -12,6 +13,7 @@ let erfaring = [];
 let utdanning = [];
 let profil = null;
 let etiketter = new Map();
+let synonymer = new Map();
 
 const res = await krevRolle('kandidat', './index.html');
 if (res) {
@@ -29,6 +31,7 @@ if (res) {
   const { data } = await supabase.from('skills').select('name, label, category').order('category').order('label');
   ferdigheter = data ?? [];
   etiketter = new Map(ferdigheter.map((f) => [f.name, f.label]));
+  synonymer = await hentSynonymer();
 
   fyllInn();
   tegnFerdigheter();
@@ -55,8 +58,7 @@ function fyllInn() {
 }
 
 function tegnFerdigheter() {
-  const sok = document.getElementById('sok').value.trim().toLowerCase();
-  const treff = ferdigheter.filter((f) => !sok || f.label.toLowerCase().includes(sok));
+  const treff = filtrer(ferdigheter, synonymer, document.getElementById('sok').value);
   const grupper = {};
   treff.forEach((f) => { (grupper[f.category] ??= []).push(f); });
 

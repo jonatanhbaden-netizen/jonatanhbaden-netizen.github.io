@@ -30,10 +30,14 @@
 <main class="innhold seksjon">
   <a class="tilbake" href="./dashboard.html">Tilbake til stillingene</a>
 
-  <div class="seksjon-hode">
-    <h1 id="tittel">…</h1>
-    <div class="oppsummering" id="oppsummering"></div>
+  <div class="rad-mellom">
+    <div class="seksjon-hode">
+      <h1 id="tittel">…</h1>
+      <div class="oppsummering" id="oppsummering"></div>
+    </div>
+    <div class="rad" id="stillingsvalg"></div>
   </div>
+  <p class="melding melding-feil" id="lite-kvalifiserte" role="status" style="background: var(--varsel-svak); color: var(--varsel); border-color: #E4D8B4"></p>
 
   <div class="garanti" id="garanti" style="margin-bottom: var(--s-6)"></div>
 
@@ -52,14 +56,16 @@
 
 <dialog id="intervju-dialog">
   <form method="dialog" class="stabel">
-    <h3>Book intervju</h3>
-    <p class="tekst" id="intervju-navn"></p>
-    <label>Tidspunkt
-      <input type="datetime-local" id="intervju-tid" required>
-    </label>
-    <div class="rad" style="justify-content: flex-end">
-      <button class="knapp knapp-2" value="avbryt" type="submit">Avbryt</button>
-      <button class="knapp" value="book" type="submit" id="bekreft-intervju">Book intervju</button>
+    <h2 style="font-size: var(--t-md)">Foreslå intervjutider</h2>
+    <p class="svak" id="intervju-navn"></p>
+    <p class="tekst" style="font-size: var(--t-sm)">Kandidaten velger ett av tidspunktene. Du får beskjed når det er bekreftet.</p>
+    <label>Tidspunkt 1 <input type="datetime-local" id="tid-1" required></label>
+    <label>Tidspunkt 2 <input type="datetime-local" id="tid-2"></label>
+    <label>Tidspunkt 3 <input type="datetime-local" id="tid-3"></label>
+    <label>Sted <input id="sted" placeholder="Adresse eller videolenke"></label>
+    <div class="rad-mellom">
+      <button class="knapp knapp-2" value="avbryt">Avbryt</button>
+      <button class="knapp" value="book">Send forslag</button>
     </div>
   </form>
 </dialog>

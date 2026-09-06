@@ -12,6 +12,7 @@ export function tegnTopp({ vert, lenker = [], aktiv = '', undertittel = '' }) {
     <nav>
       ${lenker.map((l) => `<a href="${esc(l.href)}"${l.href === aktiv ? ' aria-current="page"' : ''}>${esc(l.tekst)}</a>`).join('')}
       ${undertittel ? `<span class="svak">${esc(undertittel)}</span>` : ''}
+      <a href="/konto/index.html"${aktiv === '/konto/index.html' ? ' aria-current="page"' : ''}>Konto</a>
       <button class="knapp knapp-3" type="button" id="logg-ut">Logg ut</button>
     </nav>`;
   document.getElementById('logg-ut').addEventListener('click', () => loggUt(vert));

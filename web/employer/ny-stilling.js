@@ -2,12 +2,18 @@ import { supabase } from '/shared/supabase.js';
 import { krevRolle } from '/shared/auth.js';
 import { tegnTopp } from '/shared/components/topp.js';
 import { esc, dato, UTDANNING_TEKST, SPRAK_TEKST } from '/shared/format.js';
+import { hentSynonymer, filtrer } from '/shared/ferdigheter.js';
 
 const feil = document.getElementById('feil');
 const pakrevd = new Set();
 const onsket = new Set();
 let ferdigheter = [];
+let synonymer = new Map();
 let steg = 1;
+
+// ?id= means we are editing an existing job with the same wizard.
+const jobId = new URLSearchParams(location.search).get('id');
+let eksisterende = null;
 
 const res = await krevRolle('arbeidsgiver', './index.html');
 if (res) {
@@ -21,13 +27,36 @@ if (res) {
 
   const { data } = await supabase.from('skills').select('name, label, category').order('category').order('label');
   ferdigheter = data ?? [];
+  synonymer = await hentSynonymer();
+
+  if (jobId) {
+    const { data: j } = await supabase.from('jobs').select('*').eq('id', jobId).maybeSingle();
+    if (!j) { feil.textContent = 'Fant ikke stillingen.'; }
+    else {
+      eksisterende = j;
+      document.getElementById('overskrift').textContent = 'Rediger stilling';
+      document.getElementById('lagre').textContent = j.status === 'published' ? 'Lagre endringer' : 'Til betaling';
+      document.getElementById('tittel').value = j.title;
+      document.getElementById('beskrivelse').value = j.description;
+      document.getElementById('kommune').value = j.kommune;
+      document.getElementById('oppstart').value = j.start_date ?? '';
+      document.getElementById('utdanning').value = j.education_min;
+      document.getElementById('erfaring-min').value = j.experience_min;
+      document.getElementById('erfaring-maks').value = j.experience_max;
+      document.getElementById('norsk').value = j.norsk_min;
+      document.getElementById('engelsk').value = j.engelsk_min;
+      document.getElementById('sprak-absolutt').checked = j.language_required;
+      document.getElementById('godta').checked = true;
+      j.required_skills.forEach((s) => pakrevd.add(s));
+      j.nice_skills.forEach((s) => onsket.add(s));
+    }
+  }
   tegnFerdigheter();
   tegnOnskede();
 }
 
 function tegnFerdigheter() {
-  const sok = document.getElementById('sok').value.trim().toLowerCase();
-  const treff = ferdigheter.filter((f) => !sok || f.label.toLowerCase().includes(sok));
+  const treff = filtrer(ferdigheter, synonymer, document.getElementById('sok').value);
   const grupper = {};
   treff.forEach((f) => { (grupper[f.category] ??= []).push(f); });
 
@@ -120,7 +149,7 @@ function tegnOppsummering() {
     rad('Erfaring', `${esc(document.getElementById('erfaring-min').value)}–${esc(document.getElementById('erfaring-maks').value)} år`),
     rad('Språk', `Norsk: ${esc(SPRAK_TEKST[document.getElementById('norsk').value])}, engelsk: ${esc(SPRAK_TEKST[document.getElementById('engelsk').value])}${document.getElementById('sprak-absolutt').checked ? ' (absolutt krav)' : ''}`),
     rad('Garanterte intervjuer', '10'),
-    rad('Pris', '5 000 kr — Finn tar 10 000 kr for det samme'),
+    ...(eksisterende?.status === 'published' ? [] : [rad('Pris', '5 000 kr — Finn tar 10 000 kr for det samme')]),
   ].join('');
 }
 
@@ -145,8 +174,7 @@ document.getElementById('skjema').addEventListener('submit', async (e) => {
   knapp.disabled = true;
   knapp.textContent = 'Lagrer …';
 
-  const { data, error } = await supabase.from('jobs').insert({
-    company_id: res.arbeidsgiver.company_id,
+  const felter = {
     title: document.getElementById('tittel').value.trim(),
     description: document.getElementById('beskrivelse').value.trim(),
     required_skills: [...pakrevd],
@@ -159,16 +187,20 @@ document.getElementById('skjema').addEventListener('submit', async (e) => {
     engelsk_min: document.getElementById('engelsk').value,
     language_required: document.getElementById('sprak-absolutt').checked,
     start_date: document.getElementById('oppstart').value || null,
-    status: 'draft',
-  }).select('id').single();
+  };
+
+  // Editing keeps the status; the update trigger recomputes every match.
+  const { data, error } = eksisterende
+    ? await supabase.from('jobs').update(felter).eq('id', jobId).select('id, status').single()
+    : await supabase.from('jobs').insert({ ...felter, company_id: res.arbeidsgiver.company_id, status: 'draft' }).select('id, status').single();
 
   if (error) {
     feil.textContent = `Klarte ikke å lagre stillingen: ${error.message}`;
     knapp.disabled = false;
-    knapp.textContent = 'Til betaling';
+    knapp.textContent = eksisterende?.status === 'published' ? 'Lagre endringer' : 'Til betaling';
     return;
   }
-  location.href = `./betaling.html?id=${data.id}`;
+  location.href = data.status === 'published' ? `./stilling.html?id=${data.id}` : `./betaling.html?id=${data.id}`;
 });
 
 visSteg(1);
