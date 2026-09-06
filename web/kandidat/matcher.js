@@ -46,7 +46,8 @@ async function tegn() {
   }
 
   if (!matcher.length) {
-    const tomProfil = !res.profil.skills?.length;
+    // Ingen søknader og ingen matcher: profilen er for tynn, ikke «alt er søkt på».
+    const tomProfil = brukt === 0;
     liste.innerHTML = `<div class="tom">
       <h3>${tomProfil ? 'Fyll ut profilen for å få matcher' : 'Ingen nye matcher akkurat nå'}</h3>
       <p class="tekst">${tomProfil
