@@ -17,6 +17,9 @@
   .hint a { color: var(--ink); }
   .fare { border-color: #E6CFC2; }
   .fare h2 { color: var(--nei); }
+  .varsler { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--s-3); }
+  .varsler li { display: grid; gap: var(--s-1); padding-top: var(--s-3); border-top: var(--kant); }
+  .varsler li:first-child { border-top: 0; padding-top: 0; }
 </style>
 </head>
 <body>
@@ -48,6 +51,12 @@
     <p class="tekst">Profilen, søknadene, matchene og varslene dine slettes for godt. Arbeidsgivere du har søkt hos mister tilgangen til CV-en din. Dette kan ikke angres.</p>
     <label>Skriv <strong>SLETT</strong> for å bekrefte <input id="bekreft" autocomplete="off"></label>
     <button class="knapp" type="button" id="slett" disabled style="justify-self: start; background: var(--nei)">Slett kontoen min</button>
+  </section>
+
+  <section class="kort stabel">
+    <h2 style="font-size: var(--t-md)">Varsler</h2>
+    <p class="tekst">Det samme som sendes på e-post. Står de som «venter», er e-post ikke koblet til ennå.</p>
+    <ul class="varsler" id="varsler"></ul>
   </section>
 
   <p class="hint"><a href="./personvern.html">Personvernerklæring</a></p>

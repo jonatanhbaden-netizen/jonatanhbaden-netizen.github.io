@@ -30,8 +30,15 @@ export function registrer({ supabase, redirect, meta }) {
       return;
     }
 
-    // With email confirmation on, there is no session yet.
     if (data.session) { location.href = redirect; return; }
+
+    // No session means confirmation is on. The database confirms new accounts
+    // itself, so a plain login works; if it does not, the e-mail is the way in.
+    const { error: innFeil } = await supabase.auth.signInWithPassword({
+      email: document.getElementById('epost').value.trim(),
+      password: document.getElementById('passord').value,
+    });
+    if (!innFeil) { location.href = redirect; return; }
     ok.textContent = 'Kontoen er opprettet. Sjekk e-posten din og trykk på bekreftelseslenken for å logge inn.';
     send.textContent = 'Sendt';
   });

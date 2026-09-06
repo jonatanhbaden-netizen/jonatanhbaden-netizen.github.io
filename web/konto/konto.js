@@ -1,7 +1,7 @@
 import { supabase } from '/shared/supabase.js';
 import { hentRolle } from '/shared/auth.js';
 import { tegnTopp } from '/shared/components/topp.js';
-import { esc } from '/shared/format.js';
+import { esc, siden } from '/shared/format.js';
 
 const feil = document.getElementById('feil');
 const ok = document.getElementById('ok');
@@ -18,6 +18,17 @@ tegnTopp({
   aktiv: '/konto/index.html',
 });
 document.getElementById('hvem').textContent = res.session.user.email;
+
+const { data: varsler } = await supabase.from('notifications')
+  .select('subject, body, path, status, created_at').order('created_at', { ascending: false }).limit(30);
+const VARSEL_STATUS = { venter: 'venter på e-post', sendt: 'sendt', feilet: 'feilet' };
+document.getElementById('varsler').innerHTML = varsler?.length
+  ? varsler.map((v) => `<li>
+      <div class="rad-mellom"><strong>${esc(v.subject)}</strong><span class="svak">${esc(siden(v.created_at))} · ${esc(VARSEL_STATUS[v.status] ?? v.status)}</span></div>
+      <span class="tekst" style="font-size: var(--t-sm)">${esc(v.body)}</span>
+      <a class="svak" href="${esc(v.path)}">Åpne</a>
+    </li>`).join('')
+  : '<li class="svak">Ingen varsler ennå.</li>';
 
 document.getElementById('passord-skjema').addEventListener('submit', async (e) => {
   e.preventDefault();
