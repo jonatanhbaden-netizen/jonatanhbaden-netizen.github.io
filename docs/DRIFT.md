@@ -9,8 +9,10 @@ Authentication → URL Configuration
 - **Redirect URLs:** `<site>/kandidat/matcher.html`, `<site>/employer/dashboard.html`, `<site>/konto/nytt-passord.html`
 
 Authentication → Providers → Email
-- **Confirm email:** på. Uten egen SMTP sender Supabase maks 2 e-poster i timen — sett opp
-  **Custom SMTP** (Resend gir SMTP-detaljer) før ekte brukere.
+- **Confirm email** står på, men migrasjon `0013_autobekreft` bekrefter alle nye kontoer i
+  databasen, så registrering virker uten e-post. Vil du kreve bekreftet e-post igjen: sett opp
+  **Custom SMTP** (Resend gir SMTP-detaljer; innebygd SMTP stopper på 2 e-poster i timen) og
+  `drop trigger on_auth_user_autoconfirm on auth.users;`.
 
 Authentication → Password
 - **Leaked password protection:** på (HaveIBeenPwned-sjekk).
